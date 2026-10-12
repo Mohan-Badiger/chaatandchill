@@ -31,7 +31,7 @@ export default function Hero() {
             priority
             quality={85}
             className="object-cover object-center"
-            sizes="100vw"
+            sizes="(max-width: 768px) 100vw, 1px"
           />
         </div>
 
@@ -44,7 +44,7 @@ export default function Hero() {
             priority
             quality={85}
             className="object-cover object-center"
-            sizes="100vw"
+            sizes="(min-width: 768px) 100vw, 1px"
           />
         </div>
 
