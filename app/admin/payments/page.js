@@ -118,24 +118,24 @@ export default function AdminPaymentsPage() {
 
       {/* KPI Financial Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-[#161412] border border-gold/20 p-5 rounded-2xl">
-          <p className="text-[10px] text-[#A89F91] uppercase font-bold tracking-wider">
+        <div className="bg-[#13110F] border border-[#241F1A] p-5 rounded-2xl hover:border-[#382F24] transition-colors">
+          <p className="text-[10px] text-[#8E867B] uppercase font-bold tracking-wider">
             Net Settled Sales
           </p>
-          <p className="text-2xl font-bold font-mono text-[#E6BC65] mt-1">
+          <p className="text-2xl font-bold font-mono text-gold mt-1">
             ₹{totalCollected.toLocaleString("en-IN", { minimumFractionDigits: 2 })}
           </p>
-          <p className="text-[11px] text-emerald-400 mt-2 flex items-center gap-1">
-            <ArrowUpRight className="w-3.5 h-3.5" />
+          <p className="text-[11px] text-[#A89F91] mt-2 flex items-center gap-1">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
             100% reconciled with bank
           </p>
         </div>
 
-        <div className="bg-[#161412] border border-[#2A241F] p-5 rounded-2xl">
-          <p className="text-[10px] text-[#A89F91] uppercase font-bold tracking-wider">
+        <div className="bg-[#13110F] border border-[#241F1A] p-5 rounded-2xl hover:border-[#382F24] transition-colors">
+          <p className="text-[10px] text-[#8E867B] uppercase font-bold tracking-wider">
             UPI Merchant Share
           </p>
-          <p className="text-2xl font-bold font-mono text-cream mt-1">
+          <p className="text-2xl font-bold font-mono text-[#F7F4EE] mt-1">
             78.4%
           </p>
           <p className="text-[11px] text-[#8E867B] mt-2">
@@ -143,11 +143,11 @@ export default function AdminPaymentsPage() {
           </p>
         </div>
 
-        <div className="bg-[#161412] border border-[#2A241F] p-5 rounded-2xl">
-          <p className="text-[10px] text-[#A89F91] uppercase font-bold tracking-wider">
+        <div className="bg-[#13110F] border border-[#241F1A] p-5 rounded-2xl hover:border-[#382F24] transition-colors">
+          <p className="text-[10px] text-[#8E867B] uppercase font-bold tracking-wider">
             Total GST Liability (5%)
           </p>
-          <p className="text-2xl font-bold font-mono text-cream mt-1">
+          <p className="text-2xl font-bold font-mono text-[#F7F4EE] mt-1">
             ₹{gstCollected.toLocaleString("en-IN", { minimumFractionDigits: 2 })}
           </p>
           <p className="text-[11px] text-[#8E867B] mt-2">
@@ -155,11 +155,11 @@ export default function AdminPaymentsPage() {
           </p>
         </div>
 
-        <div className="bg-[#161412] border border-rose-500/20 p-5 rounded-2xl">
-          <p className="text-[10px] text-rose-400 uppercase font-bold tracking-wider">
+        <div className="bg-[#13110F] border border-[#241F1A] p-5 rounded-2xl hover:border-[#382F24] transition-colors">
+          <p className="text-[10px] text-[#8E867B] uppercase font-bold tracking-wider">
             Processed Refunds
           </p>
-          <p className="text-2xl font-bold font-mono text-rose-400 mt-1">
+          <p className="text-2xl font-bold font-mono text-[#F7F4EE] mt-1">
             ₹{totalRefunded.toFixed(2)}
           </p>
           <p className="text-[11px] text-[#8E867B] mt-2">
@@ -178,14 +178,14 @@ export default function AdminPaymentsPage() {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search by Txn ID, Order #, or UPI ref..."
-              className="w-full bg-espresso border border-white/10 rounded-xl pl-9 pr-3 py-2 text-xs text-cream focus:outline-none"
+              className="w-full bg-[#181512] border border-[#26201B] rounded-xl pl-9 pr-3 py-2 text-xs text-cream focus:outline-hidden focus:border-gold"
             />
           </div>
 
           <select
             value={modeFilter}
             onChange={(e) => setModeFilter(e.target.value)}
-            className="bg-espresso border border-white/10 rounded-xl px-3 py-2 text-xs text-cream focus:outline-none"
+            className="bg-[#181512] border border-[#26201B] rounded-xl px-3 py-2 text-xs text-cream focus:outline-hidden"
           >
             <option value="all">All Payment Channels</option>
             <option value="upi">UPI (PhonePe / GPay / Paytm)</option>
