@@ -99,19 +99,19 @@ export default function AdminDashboardPage() {
     { hour: "09 PM", revenue: 3900, orders: 26, height: "72%" },
   ];
 
-  // Category shares
+  // Category shares - refined harmonious luxury palette
   const categoryShares = [
     { name: "Stars of the Morning Show", percent: 42, color: "bg-[#D4A853]" },
-    { name: "Street Chaats & Snacks", percent: 24, color: "bg-[#D97200]" },
-    { name: "Liquid Gold & Chais", percent: 22, color: "bg-emerald-500" },
-    { name: "Grand Finale Classics", percent: 12, color: "bg-purple-500" },
+    { name: "Street Chaats & Snacks", percent: 24, color: "bg-[#E2C07D]" },
+    { name: "Liquid Gold & Chais", percent: 22, color: "bg-[#9A753B]" },
+    { name: "Grand Finale Classics", percent: 12, color: "bg-[#4D3A24]" },
   ];
 
   return (
     <div className="space-y-6">
       {/* Welcome Greeting */}
       <div className="pt-1">
-        <h1 className="text-2xl sm:text-3xl font-google-sans font-bold tracking-tight text-cream">
+        <h1 className="text-2xl sm:text-3xl font-google-sans font-bold tracking-tight text-[#F7F4EE]">
           Namaskara, {currentUser?.name || "Mohan"}
         </h1>
       </div>
@@ -125,7 +125,6 @@ export default function AdminDashboardPage() {
           trendLabel="vs last Friday"
           isPositive={true}
           icon={IndianRupee}
-          accentColor="gold"
           badgeText="Verified GST"
         />
 
@@ -136,7 +135,6 @@ export default function AdminDashboardPage() {
           trendLabel="today"
           isPositive={true}
           icon={ShoppingBag}
-          accentColor="amber"
           badgeText="KDS Active"
         />
 
@@ -147,7 +145,6 @@ export default function AdminDashboardPage() {
           trendLabel="tables seated"
           isPositive={tableOccupancy > 50}
           icon={Grid}
-          accentColor="purple"
           badgeText="Darshini Rush"
         />
 
@@ -158,7 +155,6 @@ export default function AdminDashboardPage() {
           trendLabel={lowStockCount === 0 ? "No shortages" : "Needs reorder"}
           isPositive={lowStockCount === 0}
           icon={AlertTriangle}
-          accentColor={lowStockCount > 0 ? "amber" : "emerald"}
           badgeText="Nandini Ghee Hub"
         />
       </div>
@@ -171,15 +167,16 @@ export default function AdminDashboardPage() {
             title="Hourly Sales Velocity & Rush Heatmap"
             subtitle="Real-time footfall & billing curve across morning and evening peak windows"
             action={
-              <div className="flex items-center gap-1 bg-espresso p-1 rounded-xl border border-[#2E2721] text-xs">
+              <div className="flex items-center gap-1 bg-[#0C0A09] p-1 rounded-xl border border-[#221C16] text-xs">
                 {["today", "week", "month"].map((tab) => (
                   <button
                     key={tab}
                     onClick={() => setSalesTimeframe(tab)}
-                    className={`px-2.5 py-1 rounded-lg capitalize font-medium transition-colors cursor-pointer ${salesTimeframe === tab
-                        ? "bg-gold text-[#141210] font-bold"
-                        : "text-[#A89F91] hover:text-cream"
-                      }`}
+                    className={`px-3 py-1 rounded-lg capitalize font-medium transition-colors cursor-pointer ${
+                      salesTimeframe === tab
+                        ? "bg-gold text-[#12100E] font-semibold shadow-xs"
+                        : "text-[#8E867B] hover:text-[#EDE8E1]"
+                    }`}
                   >
                     {tab}
                   </button>
@@ -197,15 +194,15 @@ export default function AdminDashboardPage() {
                   >
                     <div className="relative w-full flex justify-center">
                       {/* Tooltip on Hover */}
-                      <div className="absolute -top-12 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none bg-[#141210] border border-gold/40 text-cream text-[10px] px-2 py-1 rounded-lg shadow-xl whitespace-nowrap z-20 font-mono">
+                      <div className="absolute -top-12 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none bg-[#0D0B0A] border border-gold/40 text-[#FAF6F0] text-[10px] px-2.5 py-1 rounded-lg shadow-2xl whitespace-nowrap z-20 font-mono">
                         ₹{slot.revenue} ({slot.orders} orders)
                       </div>
                       <div
                         style={{ height: slot.height }}
-                        className="w-full max-w-7 rounded-t-lg bg-linear-to-t from-[#B3832B]/50 to-[#E6BC65] group-hover:from-gold group-hover:to-[#FFF0C2] transition-all duration-200"
+                        className="w-full max-w-7 rounded-t-lg bg-linear-to-t from-[#8E6C2D] to-gold group-hover:from-gold group-hover:to-[#F3CF7A] transition-all duration-200"
                       />
                     </div>
-                    <span className="text-[10px] text-[#7E7568] font-mono group-hover:text-cream transition-colors">
+                    <span className="text-[10px] text-[#7E7568] font-mono group-hover:text-[#EDE8E1] transition-colors">
                       {slot.hour}
                     </span>
                   </div>
@@ -214,22 +211,22 @@ export default function AdminDashboardPage() {
             </div>
 
             {/* Bottom summary bar */}
-            <div className="mt-4 pt-4 border-t border-[#25201B] grid grid-cols-3 gap-4 text-center">
+            <div className="mt-4 pt-4 border-t border-[#201A15] grid grid-cols-3 gap-4 text-center">
               <div>
                 <p className="text-[11px] text-[#8E867B]">Peak Window</p>
-                <p className="font-semibold text-xs text-cream mt-0.5">
+                <p className="font-semibold text-xs text-[#F7F4EE] mt-0.5">
                   07:00 PM – 09:30 PM
                 </p>
               </div>
               <div>
                 <p className="text-[11px] text-[#8E867B]">Average Order Value</p>
-                <p suppressHydrationWarning className="font-semibold text-xs text-[#E6BC65] mt-0.5 font-mono">
+                <p suppressHydrationWarning className="font-semibold text-xs text-gold mt-0.5 font-mono">
                   ₹{averageOrderValue}
                 </p>
               </div>
               <div>
                 <p className="text-[11px] text-[#8E867B]">Table Turnaround</p>
-                <p className="font-semibold text-xs text-emerald-400 mt-0.5">
+                <p className="font-semibold text-xs text-[#EDE8E1] mt-0.5">
                   21 Mins Avg
                 </p>
               </div>
@@ -394,48 +391,48 @@ export default function AdminDashboardPage() {
             subtitle="Comparing Jamakhandi Flagship & Rabakavi Adda"
           >
             <div className="space-y-3 text-xs">
-              <div className="p-3 rounded-xl bg-espresso border border-[#2A241F] space-y-2">
+              <div className="p-3.5 rounded-xl bg-[#0C0A09] border border-[#221C16] hover:border-[#382F26] transition-colors space-y-2.5">
                 <div className="flex items-center justify-between">
-                  <span className="font-bold text-cream">Chaat & Chill, Jamakhandi</span>
-                  <span className="text-[10px] text-emerald-400 font-semibold bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+                  <span className="font-semibold text-[#F7F4EE]">Chaat & Chill, Jamakhandi</span>
+                  <span className="text-[10px] text-emerald-400 font-semibold bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20">
                     Open Now
                   </span>
                 </div>
-                <div className="grid grid-cols-3 gap-2 text-center pt-1 border-t border-[#26201B]">
+                <div className="grid grid-cols-3 gap-2 text-center pt-2 border-t border-[#1E1914]">
                   <div>
                     <span className="text-[10px] text-[#8E867B]">Today&apos;s Sales</span>
                     <p className="font-mono font-semibold text-gold">₹18,450</p>
                   </div>
                   <div>
                     <span className="text-[10px] text-[#8E867B]">Seated</span>
-                    <p className="font-semibold text-cream">8 / 12 Tbls</p>
+                    <p className="font-semibold text-[#EDE8E1]">8 / 12 Tbls</p>
                   </div>
                   <div>
                     <span className="text-[10px] text-[#8E867B]">Rating</span>
-                    <p className="font-semibold text-cream">4.9 ★</p>
+                    <p className="font-semibold text-[#EDE8E1]">4.9 ★</p>
                   </div>
                 </div>
               </div>
 
-              <div className="p-3 rounded-xl bg-espresso border border-[#2A241F] space-y-2">
+              <div className="p-3.5 rounded-xl bg-[#0C0A09] border border-[#221C16] hover:border-[#382F26] transition-colors space-y-2.5">
                 <div className="flex items-center justify-between">
-                  <span className="font-bold text-cream">The Shreeshailam Cafe, Rabakavi</span>
-                  <span className="text-[10px] text-emerald-400 font-semibold bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+                  <span className="font-semibold text-[#F7F4EE]">The Shreeshailam Cafe, Rabakavi</span>
+                  <span className="text-[10px] text-emerald-400 font-semibold bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20">
                     Open Now
                   </span>
                 </div>
-                <div className="grid grid-cols-3 gap-2 text-center pt-1 border-t border-[#26201B]">
+                <div className="grid grid-cols-3 gap-2 text-center pt-2 border-t border-[#1E1914]">
                   <div>
                     <span className="text-[10px] text-[#8E867B]">Today&apos;s Sales</span>
                     <p className="font-mono font-semibold text-gold">₹10,000</p>
                   </div>
                   <div>
                     <span className="text-[10px] text-[#8E867B]">Seated</span>
-                    <p className="font-semibold text-cream">5 / 8 Tbls</p>
+                    <p className="font-semibold text-[#EDE8E1]">5 / 8 Tbls</p>
                   </div>
                   <div>
                     <span className="text-[10px] text-[#8E867B]">Rating</span>
-                    <p className="font-semibold text-cream">4.8 ★</p>
+                    <p className="font-semibold text-[#EDE8E1]">4.8 ★</p>
                   </div>
                 </div>
               </div>
