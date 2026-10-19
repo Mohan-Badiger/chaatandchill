@@ -31,7 +31,7 @@ export default function AdminStatsCard({
 
         {Icon && (
           <div
-            className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 bg-[#1C1814] border border-[#2A241F] text-[#D4A853] shadow-inner transition-transform group-hover:scale-105 group-hover:border-[#D4A853]/40"
+            className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 bg-[#1C1814] border border-[#2A241F] text-gold shadow-inner transition-transform group-hover:scale-105 group-hover:border-gold/40"
           >
             <Icon className="w-5 h-5" />
           </div>
@@ -64,7 +64,7 @@ export default function AdminStatsCard({
           )}
 
           {badgeText && (
-            <span suppressHydrationWarning className="text-[11px] font-medium text-[#D4A853] bg-[#D4A853]/10 border border-[#D4A853]/20 px-2.5 py-0.5 rounded-full">
+            <span suppressHydrationWarning className="text-[11px] font-medium text-gold bg-gold/10 border border-gold/20 px-2.5 py-0.5 rounded-full">
               {badgeText}
             </span>
           )}

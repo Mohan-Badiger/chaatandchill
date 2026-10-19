@@ -127,7 +127,7 @@ export default function QuickPosModal() {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search dishes..."
-              className="flex-1 bg-[#141210] border border-[#26201B] rounded-xl px-3 py-2 text-sm text-[#F7F4EE] placeholder:text-[#6E665C] focus:border-[#D4A853]/50 focus:outline-hidden"
+              className="flex-1 bg-[#141210] border border-[#26201B] rounded-xl px-3 py-2 text-sm text-[#F7F4EE] placeholder:text-[#6E665C] focus:border-gold/50 focus:outline-hidden"
             />
           </div>
 
@@ -140,7 +140,7 @@ export default function QuickPosModal() {
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-3 py-1.5 rounded-lg whitespace-nowrap font-medium transition-colors cursor-pointer ${
                   selectedCategory === cat
-                    ? "bg-[#D4A853] text-[#12100E] font-semibold shadow-xs"
+                    ? "bg-gold text-[#12100E] font-semibold shadow-xs"
                     : "bg-[#141210] border border-[#221C16] text-[#8E867B] hover:text-[#EDE8E1]"
                 }`}
               >
@@ -159,7 +159,7 @@ export default function QuickPosModal() {
                   onClick={() => addToCart(item)}
                   className={`p-3 rounded-xl border transition-all cursor-pointer select-none flex flex-col justify-between ${
                     inCartQty > 0
-                      ? "bg-[#D4A853]/10 border-[#D4A853]/40 shadow-md"
+                      ? "bg-gold/10 border-gold/40 shadow-md"
                       : "bg-[#13110F] border-[#221C16] hover:border-[#382F26]"
                   }`}
                 >
@@ -169,7 +169,7 @@ export default function QuickPosModal() {
                         {item.title}
                       </h5>
                       {inCartQty > 0 && (
-                        <span className="w-5 h-5 rounded-full bg-[#D4A853] text-[#12100E] font-bold text-[10px] flex items-center justify-center shrink-0">
+                        <span className="w-5 h-5 rounded-full bg-gold text-[#12100E] font-bold text-[10px] flex items-center justify-center shrink-0">
                           {inCartQty}
                         </span>
                       )}
@@ -179,7 +179,7 @@ export default function QuickPosModal() {
                     </p>
                   </div>
                   <div className="mt-2.5 flex items-center justify-between text-xs">
-                    <span className="font-semibold text-[#D4A853] font-mono">
+                    <span className="font-semibold text-gold font-mono">
                       ₹{item.price}
                     </span>
                     <span className="text-[10px] text-[#7E7568] uppercase font-mono">
