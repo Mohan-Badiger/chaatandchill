@@ -54,7 +54,7 @@ export default function AdminModal({
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-lg text-[#A89F91] hover:text-[#FAF5EF] hover:bg-white/5 transition-colors cursor-pointer"
+            className="p-1.5 rounded-lg text-[#A89F91] hover:text-cream hover:bg-white/5 transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
