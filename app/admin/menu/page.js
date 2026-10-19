@@ -236,14 +236,14 @@ export default function AdminMenuPage() {
         {filteredItems.map((item) => (
           <div
             key={item.id}
-            className={`group relative bg-[#171412] border rounded-2xl overflow-hidden shadow-lg transition-all duration-300 flex flex-col justify-between ${
+            className={`group relative bg-[#13110F] border rounded-2xl overflow-hidden shadow-lg transition-all duration-300 flex flex-col justify-between ${
               item.isAvailable
-                ? "border-[#2A241F] hover:border-amber-400/35 hover:shadow-2xl hover:shadow-black/70"
-                : "border-rose-950/40 bg-[#13100E] opacity-85"
+                ? "border-[#241F1A] hover:border-gold/40 hover:shadow-2xl hover:shadow-black/70"
+                : "border-white/5 bg-[#0F0D0C] opacity-80"
             }`}
           >
             {/* Dish Image */}
-            <div className="relative aspect-16/10 w-full bg-[#1F1B17] overflow-hidden">
+            <div className="relative aspect-16/10 w-full bg-[#1A1613] overflow-hidden">
               <Image
                 src={item.image || "/images/food-dosa.jpg"}
                 alt={item.title}
@@ -255,13 +255,13 @@ export default function AdminMenuPage() {
               />
 
               {/* Gradient overlay */}
-              <div className="absolute inset-0 bg-linear-to-t from-[#171412] via-transparent to-transparent opacity-85" />
+              <div className="absolute inset-0 bg-linear-to-t from-[#13110F] via-transparent to-transparent opacity-90" />
 
               {/* Bestseller Label (shown if item is a bestseller) */}
               {item.isBestseller && (
                 <div className="absolute top-3 left-3 z-10">
-                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-linear-to-r from-amber-400 via-amber-300 to-amber-500 text-stone-950 shadow-md shadow-amber-500/25 backdrop-blur-md">
-                    <Sparkles className="w-3 h-3 fill-stone-950" />
+                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-gold text-[#0A0908] shadow-md">
+                    <Sparkles className="w-3 h-3 fill-[#0A0908]" />
                     Bestseller
                   </span>
                 </div>
@@ -269,8 +269,8 @@ export default function AdminMenuPage() {
 
               {/* Sold Out Overlay Badge */}
               {!item.isAvailable && (
-                <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/60 backdrop-blur-[2px]">
-                  <span className="px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-rose-600 text-white shadow-lg shadow-rose-950/60 border border-rose-400/30">
+                <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/70 backdrop-blur-[2px]">
+                  <span className="px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-rose-500/20 text-rose-300 border border-rose-500/30">
                     Sold Out
                   </span>
                 </div>
@@ -281,10 +281,10 @@ export default function AdminMenuPage() {
             <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
               <div>
                 <div className="flex items-start justify-between gap-3">
-                  <h3 className="font-semibold text-base sm:text-lg text-cream leading-snug line-clamp-1 group-hover:text-amber-200/95 transition-colors">
+                  <h3 className="font-semibold text-base sm:text-lg text-cream leading-snug line-clamp-1 group-hover:text-gold transition-colors">
                     {item.title}
                   </h3>
-                  <span className="font-mono text-base font-bold text-amber-400 shrink-0">
+                  <span className="font-mono text-base font-bold text-gold shrink-0">
                     ₹{item.price}
                   </span>
                 </div>

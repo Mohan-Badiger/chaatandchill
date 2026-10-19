@@ -41,10 +41,10 @@ export default function AdminDrawer({
       {/* Slide-out Drawer */}
       <div className="fixed inset-y-0 right-0 pl-10 max-w-full flex">
         <div
-          className={`w-screen ${width} bg-[#161412] border-l border-[#2E2721] shadow-2xl flex flex-col animate-in slide-in-from-right duration-250`}
+          className={`w-screen ${width} bg-[#13110F] border-l border-[#241F1A] shadow-2xl flex flex-col animate-in slide-in-from-right duration-250`}
         >
           {/* Header */}
-          <div className="px-6 py-4 border-b border-[#2A241F] flex items-center justify-between gap-4 shrink-0 bg-espresso">
+          <div className="px-6 py-4 border-b border-[#241F1A] flex items-center justify-between gap-4 shrink-0 bg-[#0F0D0C]">
             <div>
               <h3 className="font-google-sans font-semibold text-lg text-cream">{title}</h3>
               {subtitle && (
@@ -67,7 +67,7 @@ export default function AdminDrawer({
 
           {/* Footer */}
           {footer && (
-            <div className="px-6 py-4 border-t border-[#2A241F] bg-[#141210] flex items-center justify-end gap-3 shrink-0">
+            <div className="px-6 py-4 border-t border-[#241F1A] bg-[#0F0D0C] flex items-center justify-end gap-3 shrink-0">
               {footer}
             </div>
           )}

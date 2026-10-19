@@ -93,10 +93,10 @@ export default function AdminSidebar() {
   const renderBadge = (count, variant) => {
     if (!mounted || !count) return null;
     const colors = {
-      amber: "bg-[#D97200] text-white",
-      gold: "bg-[#D4A853] text-[#141210]",
-      danger: "bg-rose-500 text-white animate-pulse",
-      white: "bg-white/15 text-white border border-white/20 font-bold",
+      amber: "bg-[#D4A853]/15 text-[#E6BC65] border border-[#D4A853]/30",
+      gold: "bg-[#D4A853]/15 text-[#E6BC65] border border-[#D4A853]/30",
+      danger: "bg-rose-500/15 text-rose-300 border border-rose-500/25",
+      white: "bg-white/10 text-white border border-white/15",
     };
     return (
       <span
@@ -111,25 +111,20 @@ export default function AdminSidebar() {
   };
 
   const navContent = (
-    <div className="flex flex-col h-full bg-[#12100E] border-r border-[#26201B] select-none">
+    <div className="flex flex-col h-full bg-[#0D0B0A] border-r border-[#201A15] select-none">
       {/* Brand Header */}
-      <div className="h-16 px-4 flex items-center justify-between border-b border-[#26201B]">
+      <div className="h-16 px-4 flex items-center justify-between border-b border-[#201A15]">
         <Link
           href="/admin"
           className="flex items-center gap-2.5 overflow-hidden group cursor-pointer"
         >
-          <div className="w-9 h-9 rounded-xl bg-linear-to-br from-gold to-[#B3832B] flex items-center justify-center shrink-0 shadow-md shadow-gold/20 group-hover:scale-105 transition-transform">
-            <Coffee className="w-5 h-5 text-[#141210]" />
+          <div className="w-9 h-9 rounded-xl bg-[#1C1814] border border-gold/30 flex items-center justify-center shrink-0 shadow-inner group-hover:border-gold/60 transition-colors">
+            <Coffee className="w-4.5 h-4.5 text-gold" />
           </div>
           {!sidebarCollapsed && (
-            <div className="flex flex-col min-w-0">
-              <span className="font-google-sans font-bold text-sm tracking-wide text-cream truncate">
-                Chaat & Chill
-              </span>
-              <span className="text-[10px] text-[#A89F91] tracking-wider uppercase font-medium">
-                Admin Suite
-              </span>
-            </div>
+            <span className="font-google-sans font-bold text-sm tracking-wide text-cream truncate">
+              Chaat &amp; Chill
+            </span>
           )}
         </Link>
 
@@ -148,7 +143,7 @@ export default function AdminSidebar() {
         {navGroups.map((group) => (
           <div key={group.group} className="space-y-1">
             {!sidebarCollapsed && (
-              <p className="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-[#7E7568]">
+              <p className="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-[#665D53]">
                 {group.group}
               </p>
             )}
@@ -167,14 +162,14 @@ export default function AdminSidebar() {
                     title={sidebarCollapsed ? item.label : undefined}
                     className={`flex items-center justify-between px-2.5 py-2 rounded-xl text-xs font-medium transition-all group cursor-pointer ${
                       isActive
-                        ? "bg-gold/15 text-[#E6BC65] font-semibold border border-gold/30 shadow-sm"
-                        : "text-[#B5AAA0] hover:text-cream hover:bg-white/5"
+                        ? "bg-[#1C1814] text-[#F7F4EE] font-semibold border border-gold/30 shadow-sm"
+                        : "text-[#9E9689] hover:text-[#F7F4EE] hover:bg-white/4"
                     } ${sidebarCollapsed ? "justify-center" : ""}`}
                   >
                     <div className="flex items-center gap-3 min-w-0">
                       <Icon
-                        className={`w-4 h-4 shrink-0 transition-transform group-hover:scale-110 ${
-                          isActive ? "text-gold" : "text-[#8E867B] group-hover:text-cream"
+                        className={`w-4 h-4 shrink-0 transition-transform group-hover:scale-105 ${
+                          isActive ? "text-gold" : "text-[#6E665C] group-hover:text-gold"
                         }`}
                       />
                       {!sidebarCollapsed && (

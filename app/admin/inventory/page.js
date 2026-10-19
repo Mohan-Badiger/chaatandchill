@@ -87,40 +87,46 @@ export default function AdminInventoryPage() {
 
       {/* KPI Status Strip */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="bg-[#161412] border border-rose-500/20 p-4 rounded-2xl flex items-center justify-between">
+        <div className="bg-[#13110F] border border-[#241F1A] p-4 rounded-2xl flex items-center justify-between">
           <div>
-            <p className="text-[10px] text-rose-400 uppercase font-bold tracking-wider">
+            <p className="text-[10px] text-[#8E867B] uppercase font-bold tracking-wider">
               Critical Shortages
             </p>
             <p className="text-2xl font-bold font-mono text-cream mt-0.5">
               {criticalCount} Items
             </p>
           </div>
-          <AlertTriangle className="w-8 h-8 text-rose-400/40" />
+          <div className="w-10 h-10 rounded-xl bg-white/4 border border-white/5 flex items-center justify-center text-rose-400">
+            <AlertTriangle className="w-5 h-5" />
+          </div>
         </div>
 
-        <div className="bg-[#161412] border border-amber-500/20 p-4 rounded-2xl flex items-center justify-between">
+        <div className="bg-[#13110F] border border-[#241F1A] p-4 rounded-2xl flex items-center justify-between">
           <div>
-            <p className="text-[10px] text-amber-400 uppercase font-bold tracking-wider">
+            <p className="text-[10px] text-[#8E867B] uppercase font-bold tracking-wider">
               Below Safe Threshold
             </p>
             <p className="text-2xl font-bold font-mono text-cream mt-0.5">
               {lowCount} Items
             </p>
           </div>
-          <TrendingDown className="w-8 h-8 text-amber-400/40" />
+          <div className="w-10 h-10 rounded-xl bg-white/4 border border-white/5 flex items-center justify-center text-gold">
+            <TrendingDown className="w-5 h-5" />
+          </div>
         </div>
 
-        <div className="bg-[#161412] border border-emerald-500/20 p-4 rounded-2xl flex items-center justify-between">
+        <div className="bg-[#13110F] border border-[#241F1A] p-4 rounded-2xl flex items-center justify-between">
           <div>
-            <p className="text-[10px] text-emerald-400 uppercase font-bold tracking-wider">
+            <p className="text-[10px] text-[#8E867B] uppercase font-bold tracking-wider">
               Adequate & Healthy
             </p>
             <p className="text-2xl font-bold font-mono text-cream mt-0.5">
               {goodCount} Items
             </p>
           </div>
-          <CheckCircle2 className="w-8 h-8 text-emerald-400/40" />
+          <div className="w-10 h-10 rounded-xl bg-white/4 border border-white/5 flex items-center justify-center text-emerald-400">
+            <CheckCircle2 className="w-5 h-5" />
+          </div>
         </div>
       </div>
 
@@ -134,14 +140,14 @@ export default function AdminInventoryPage() {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search ingredient, supplier, or category..."
-              className="w-full bg-espresso border border-[#2E2721] rounded-xl pl-9 pr-3 py-2 text-xs text-cream placeholder:text-[#7E7568] focus:border-gold focus:outline-hidden"
+              className="w-full bg-[#181512] border border-[#26201B] rounded-xl pl-9 pr-3 py-2 text-xs text-cream placeholder:text-[#7E7568] focus:border-gold focus:outline-hidden"
             />
           </div>
 
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="bg-espresso border border-[#2E2721] rounded-xl px-3 py-2 text-xs text-cream focus:outline-hidden"
+            className="bg-[#181512] border border-[#26201B] rounded-xl px-3 py-2 text-xs text-cream focus:outline-hidden"
           >
             <option value="all">All Inventory Statuses</option>
             <option value="critical">Critical Shortages Only</option>
@@ -158,13 +164,7 @@ export default function AdminInventoryPage() {
           return (
             <AdminCard
               key={item.id}
-              className={`transition-all flex flex-col justify-between ${
-                item.status === "critical"
-                  ? "border-rose-500/40 bg-[#171111]"
-                  : item.status === "low"
-                  ? "border-amber-500/40 bg-[#161310]"
-                  : "border-[#2A241F]"
-              }`}
+              className="transition-all flex flex-col justify-between hover:border-[#382F24]"
             >
               <div className="space-y-3">
                 <div className="flex items-start justify-between gap-2">

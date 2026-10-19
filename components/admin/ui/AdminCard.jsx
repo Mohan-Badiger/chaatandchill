@@ -12,25 +12,25 @@ export default function AdminCard({
 }) {
   return (
     <div
-      className={`bg-[#161412] border border-[#2A241F] rounded-2xl shadow-xl overflow-hidden transition-all duration-200 ${className}`}
+      className={`bg-[#13110F] border border-[#241F1A] rounded-2xl shadow-xl overflow-hidden hover:border-[#382F26] transition-colors ${className}`}
     >
       {(title || subtitle || action || badge) && (
         <div
           className={`px-5 py-4 flex flex-wrap items-center justify-between gap-3 ${
-            headerBorder ? "border-b border-[#2A241F]" : ""
+            headerBorder ? "border-b border-[#201A15]" : ""
           }`}
         >
           <div>
             <div className="flex items-center gap-2.5">
               {title && (
-                <h3 className="font-google-sans font-semibold text-base text-cream tracking-tight">
+                <h3 className="font-google-sans font-semibold text-base text-[#F7F4EE] tracking-tight">
                   {title}
                 </h3>
               )}
               {badge && <div>{badge}</div>}
             </div>
             {subtitle && (
-              <p suppressHydrationWarning className="text-xs text-[#A89F91] mt-0.5 font-normal">
+              <p suppressHydrationWarning className="text-xs text-[#8E867B] mt-0.5 font-normal">
                 {subtitle}
               </p>
             )}

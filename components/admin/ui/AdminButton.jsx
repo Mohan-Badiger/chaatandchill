@@ -15,19 +15,19 @@ export default function AdminButton({
 }) {
   const variants = {
     primary:
-      "bg-gradient-to-r from-[#D4A853] to-[#E6BC65] text-[#141210] font-semibold hover:from-[#E6BC65] hover:to-[#F3CF7A] shadow-md shadow-[#D4A853]/10 active:scale-[0.98]",
+      "bg-[#D4A853] hover:bg-[#E2B765] text-[#12100E] font-semibold shadow-md shadow-[#D4A853]/15 active:scale-[0.98]",
     secondary:
-      "bg-[#25201B] hover:bg-[#322A23] text-[#FAF5EF] border border-[#3C332A] active:scale-[0.98]",
+      "bg-[#181512] hover:bg-[#221D18] text-[#EDE8E1] border border-[#2A241F] hover:border-[#3E3428] active:scale-[0.98]",
     dark:
-      "bg-[#1A1714] hover:bg-[#25211D] text-[#D8CEBF] border border-[#2E2721] active:scale-[0.98]",
+      "bg-[#13110F] hover:bg-[#1A1714] text-[#D8CEBF] border border-[#221C16] active:scale-[0.98]",
     danger:
-      "bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 border border-rose-500/30 active:scale-[0.98]",
+      "bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 border border-rose-500/25 active:scale-[0.98]",
     success:
-      "bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/30 active:scale-[0.98]",
+      "bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 border border-emerald-500/25 active:scale-[0.98]",
     ghost:
-      "bg-transparent hover:bg-white/5 text-[#D8CEBF] hover:text-[#FAF5EF]",
+      "bg-transparent hover:bg-white/[0.04] text-[#8E867B] hover:text-[#FAF5EF]",
     outlineGold:
-      "bg-transparent hover:bg-[#D4A853]/10 text-[#D4A853] border border-[#D4A853]/40 active:scale-[0.98]",
+      "bg-transparent hover:bg-[#D4A853]/10 text-[#D4A853] border border-[#D4A853]/30 active:scale-[0.98]",
   };
 
   const sizes = {

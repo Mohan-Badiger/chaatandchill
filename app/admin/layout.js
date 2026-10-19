@@ -8,10 +8,6 @@ import AdminHeader from "@/components/admin/ui/AdminHeader";
 import AdminToast from "@/components/admin/ui/AdminToast";
 
 // Code optimization: Lazily load heavy interactive modals only on the client
-const AdminCommandPalette = dynamic(
-  () => import("@/components/admin/ui/AdminCommandPalette"),
-  { ssr: false }
-);
 const QuickPosModal = dynamic(
   () => import("@/components/admin/ui/QuickPosModal"),
   { ssr: false }
@@ -34,7 +30,7 @@ export default function AdminLayout({ children }) {
 
   return (
     <AdminProvider>
-      <div className="min-h-screen bg-[#0E0C0A] text-[#EDE8E1] flex flex-row admin-scope">
+      <div className="min-h-screen bg-[#0A0908] text-[#EDE8E1] flex flex-row admin-scope">
         {/* Persistent Responsive Sidebar */}
         <AdminSidebar />
 
@@ -47,7 +43,6 @@ export default function AdminLayout({ children }) {
         </div>
 
         {/* Global Floating Modals & Tools */}
-        <AdminCommandPalette />
         <QuickPosModal />
         <AdminToast />
       </div>

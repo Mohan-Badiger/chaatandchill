@@ -10,31 +10,31 @@ export default function AdminBadge({
   ...props
 }) {
   const variants = {
-    default: "bg-[#25201B] text-[#D8CEBF] border-[#362D24]",
-    gold: "bg-[#D4A853]/15 text-[#E6BC65] border-[#D4A853]/30",
-    amber: "bg-[#D97200]/15 text-[#FFA043] border-[#D97200]/30",
-    success: "bg-emerald-500/15 text-emerald-400 border-emerald-500/30",
-    danger: "bg-rose-500/15 text-rose-400 border-rose-500/30",
-    warning: "bg-amber-500/15 text-amber-300 border-amber-500/30",
-    info: "bg-sky-500/15 text-sky-300 border-sky-500/30",
-    purple: "bg-purple-500/15 text-purple-300 border-purple-500/30",
+    default: "bg-white/[0.04] text-[#C8BFB2] border-white/[0.08]",
+    gold: "bg-[#D4A853]/10 text-[#E6BC65] border-[#D4A853]/25",
+    amber: "bg-amber-500/10 text-amber-300 border-amber-500/20",
+    success: "bg-emerald-500/10 text-emerald-300 border-emerald-500/20",
+    danger: "bg-rose-500/10 text-rose-300 border-rose-500/20",
+    warning: "bg-amber-500/10 text-amber-300 border-amber-500/20",
+    info: "bg-white/[0.06] text-[#EDE8E1] border-white/10",
+    purple: "bg-white/[0.06] text-[#EDE8E1] border-white/10",
   };
 
   const sizes = {
-    sm: "text-[10px] px-2 py-0.5 tracking-wider uppercase font-semibold",
+    sm: "text-[10px] px-2.5 py-0.5 tracking-wider uppercase font-semibold",
     md: "text-xs px-2.5 py-1 font-medium",
-    lg: "text-sm px-3 py-1.5 font-medium",
+    lg: "text-sm px-3.5 py-1.5 font-medium",
   };
 
   const dotColors = {
-    default: "bg-[#A89F91]",
+    default: "bg-[#8E867B]",
     gold: "bg-[#D4A853]",
-    amber: "bg-[#D97200]",
+    amber: "bg-amber-400",
     success: "bg-emerald-400",
     danger: "bg-rose-400",
     warning: "bg-amber-400",
-    info: "bg-sky-400",
-    purple: "bg-purple-400",
+    info: "bg-[#EDE8E1]",
+    purple: "bg-[#EDE8E1]",
   };
 
   return (

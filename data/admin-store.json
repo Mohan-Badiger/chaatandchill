@@ -1,6 +1,6 @@
 {
-  "version": 23,
-  "lastModified": "2026-10-19T17:01:35.407Z",
+  "version": 24,
+  "lastModified": "2026-10-19T17:11:48.507Z",
   "currentUser": {
     "id": "admin-master",
     "name": "Mohan",
@@ -395,6 +395,41 @@
     }
   ],
   "orders": [
+    {
+      "id": "ORD-9523",
+      "timestamp": "2026-10-19T17:11:48.409Z",
+      "status": "pending",
+      "paymentStatus": "paid",
+      "outlet": "Jamakhandi",
+      "type": "Dine-in",
+      "table": "T-02",
+      "customer": {
+        "name": "Dr. Sanjeev Rao",
+        "phone": "+91 9883473232"
+      },
+      "items": [
+        {
+          "id": "item-113",
+          "title": "Traditional Bisi Bele Bath",
+          "quantity": 1,
+          "price": 130,
+          "notes": "Special request"
+        },
+        {
+          "id": "item-103",
+          "title": "Open Butter Masala Dosa",
+          "quantity": 1,
+          "price": 170,
+          "notes": ""
+        }
+      ],
+      "subtotal": 300,
+      "tax": 15,
+      "discount": 0,
+      "total": 315,
+      "paymentMode": "UPI / PhonePe Live",
+      "kotPrinted": false
+    },
     {
       "id": "ORD-9844",
       "timestamp": "2026-10-19T16:49:29.486Z",
@@ -1567,6 +1602,15 @@
     ]
   },
   "notifications": [
+    {
+      "id": "notif-1792429908507",
+      "type": "order",
+      "priority": "urgent",
+      "title": "⚡ New Order: ORD-9523",
+      "message": "Dr. Sanjeev Rao placed an order for ₹315.",
+      "time": "Just now",
+      "read": false
+    },
     {
       "id": "notif-1792428569505",
       "type": "order",

@@ -126,14 +126,14 @@ export default function AdminTablesPage() {
         <button
           type="button"
           onClick={() => setStatusFilter(statusFilter === "available" ? "all" : "available")}
-          className={`p-4 rounded-2xl bg-[#161412] border text-left transition-all cursor-pointer ${
+          className={`p-4 rounded-2xl bg-[#13110F] border text-left transition-all cursor-pointer ${
             statusFilter === "available"
-              ? "border-gold/50 shadow-md ring-1 ring-gold/20"
-              : "border-[#2A241F] hover:border-[#3E342B]"
+              ? "border-gold/60 shadow-lg shadow-black/40 ring-1 ring-gold/30"
+              : "border-[#241F1A] hover:border-[#3A3126]"
           }`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs text-[#A89F91] font-medium uppercase tracking-wider">
+            <span className="text-xs text-[#8E867B] font-medium uppercase tracking-wider">
               Available Tables
             </span>
             <AdminBadge variant="success" size="sm" dot>
@@ -155,14 +155,14 @@ export default function AdminTablesPage() {
         <button
           type="button"
           onClick={() => setStatusFilter(statusFilter === "dining" ? "all" : "dining")}
-          className={`p-4 rounded-2xl bg-[#161412] border text-left transition-all cursor-pointer ${
+          className={`p-4 rounded-2xl bg-[#13110F] border text-left transition-all cursor-pointer ${
             statusFilter === "dining"
-              ? "border-gold/50 shadow-md ring-1 ring-gold/20"
-              : "border-[#2A241F] hover:border-[#3E342B]"
+              ? "border-gold/60 shadow-lg shadow-black/40 ring-1 ring-gold/30"
+              : "border-[#241F1A] hover:border-[#3A3126]"
           }`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs text-[#A89F91] font-medium uppercase tracking-wider">
+            <span className="text-xs text-[#8E867B] font-medium uppercase tracking-wider">
               Dining & Active
             </span>
             <AdminBadge variant="gold" size="sm" dot>
@@ -186,14 +186,14 @@ export default function AdminTablesPage() {
         <button
           type="button"
           onClick={() => setStatusFilter(statusFilter === "reserved" ? "all" : "reserved")}
-          className={`p-4 rounded-2xl bg-[#161412] border text-left transition-all cursor-pointer ${
+          className={`p-4 rounded-2xl bg-[#13110F] border text-left transition-all cursor-pointer ${
             statusFilter === "reserved"
-              ? "border-gold/50 shadow-md ring-1 ring-gold/20"
-              : "border-[#2A241F] hover:border-[#3E342B]"
+              ? "border-gold/60 shadow-lg shadow-black/40 ring-1 ring-gold/30"
+              : "border-[#241F1A] hover:border-[#3A3126]"
           }`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs text-[#A89F91] font-medium uppercase tracking-wider">
+            <span className="text-xs text-[#8E867B] font-medium uppercase tracking-wider">
               Advance Bookings
             </span>
             <AdminBadge variant="info" size="sm" dot>
@@ -213,7 +213,7 @@ export default function AdminTablesPage() {
       </div>
 
       {/* Filter Tabs & Search Controls */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#161412] p-2 rounded-2xl border border-[#2A241F]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#13110F] p-2 rounded-2xl border border-[#241F1A]">
         {/* Status Filter Pills */}
         <div className="flex items-center gap-1.5 overflow-x-auto menu-scroll">
           <button
@@ -221,7 +221,7 @@ export default function AdminTablesPage() {
             onClick={() => setStatusFilter("all")}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-colors cursor-pointer ${
               statusFilter === "all"
-                ? "bg-[#25201B] border border-[#3E342B] text-cream"
+                ? "bg-[#221C17] border border-[#3A3024] text-cream font-bold"
                 : "text-[#8E867B] hover:text-cream hover:bg-white/5"
             }`}
           >
@@ -233,12 +233,12 @@ export default function AdminTablesPage() {
             onClick={() => setStatusFilter("available")}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-colors cursor-pointer ${
               statusFilter === "available"
-                ? "bg-[#25201B] border border-[#3E342B] text-cream"
+                ? "bg-[#221C17] border border-[#3A3024] text-cream font-bold"
                 : "text-[#8E867B] hover:text-cream hover:bg-white/5"
             }`}
           >
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-            <span suppressHydrationWarning>Available ({availableCount})</span>
+            Available ({availableCount})
           </button>
 
           <button
@@ -246,12 +246,12 @@ export default function AdminTablesPage() {
             onClick={() => setStatusFilter("dining")}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-colors cursor-pointer ${
               statusFilter === "dining"
-                ? "bg-[#25201B] border border-[#3E342B] text-cream"
+                ? "bg-[#221C17] border border-[#3A3024] text-cream font-bold"
                 : "text-[#8E867B] hover:text-cream hover:bg-white/5"
             }`}
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#E6BC65]" />
-            <span suppressHydrationWarning>Dining ({diningCount})</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-gold" />
+            Dining ({diningCount})
           </button>
 
           <button
@@ -259,7 +259,7 @@ export default function AdminTablesPage() {
             onClick={() => setStatusFilter("reserved")}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-colors cursor-pointer ${
               statusFilter === "reserved"
-                ? "bg-[#25201B] border border-[#3E342B] text-cream"
+                ? "bg-[#221C17] border border-[#3A3024] text-cream font-bold"
                 : "text-[#8E867B] hover:text-cream hover:bg-white/5"
             }`}
           >
@@ -276,7 +276,7 @@ export default function AdminTablesPage() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search Table #, order..."
-            className="w-full bg-espresso border border-[#2E2721] rounded-xl pl-9 pr-3 py-1.5 text-xs text-cream placeholder:text-[#7E7568] focus:border-gold focus:outline-hidden"
+            className="w-full bg-[#181512] border border-[#26201B] rounded-xl pl-9 pr-3 py-1.5 text-xs text-cream placeholder:text-[#7E7568] focus:border-gold focus:outline-hidden"
           />
         </div>
       </div>
@@ -292,7 +292,7 @@ export default function AdminTablesPage() {
             <div
               key={tbl.id}
               onClick={() => handleOpenDrawer(tbl)}
-              className="p-5 rounded-2xl bg-[#161412] border border-[#2A241F] hover:border-[#3E342B] transition-all cursor-pointer select-none flex flex-col justify-between min-h-55 shadow-lg group relative"
+              className="p-5 rounded-2xl bg-[#13110F] border border-[#241F1A] hover:border-[#3A3126] transition-all cursor-pointer select-none flex flex-col justify-between min-h-55 shadow-lg group relative"
             >
               {/* Card Top: Code & Tag */}
               <div>

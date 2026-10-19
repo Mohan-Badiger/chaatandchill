@@ -10,75 +10,44 @@ export default function AdminStatsCard({
   isPositive = true,
   icon: Icon,
   badgeText,
-  accentColor = "gold", // gold, emerald, amber, purple, sky
   className = "",
 }) {
-  const accentStyles = {
-    gold: {
-      border: "border-[#3A3022]",
-      glow: "hover:border-[#D4A853]/40",
-      iconBg: "bg-[#D4A853]/15 text-[#E6BC65]",
-    },
-    emerald: {
-      border: "border-[#1E3A2B]",
-      glow: "hover:border-emerald-500/40",
-      iconBg: "bg-emerald-500/15 text-emerald-400",
-    },
-    amber: {
-      border: "border-[#3D2512]",
-      glow: "hover:border-[#D97200]/40",
-      iconBg: "bg-[#D97200]/15 text-[#FFA043]",
-    },
-    purple: {
-      border: "border-[#311E3F]",
-      glow: "hover:border-purple-500/40",
-      iconBg: "bg-purple-500/15 text-purple-400",
-    },
-    sky: {
-      border: "border-[#162D3D]",
-      glow: "hover:border-sky-500/40",
-      iconBg: "bg-sky-500/15 text-sky-400",
-    },
-  };
-
-  const style = accentStyles[accentColor] || accentStyles.gold;
-
   return (
     <div
-      className={`relative bg-[#161412] border ${style.border} ${style.glow} rounded-2xl p-5 shadow-lg transition-all duration-200 group overflow-hidden ${className}`}
+      className={`relative bg-[#13110F] border border-[#241F1A] hover:border-[#3E3428] rounded-2xl p-5 shadow-xl transition-all duration-200 group overflow-hidden ${className}`}
     >
-      {/* Background ambient radial highlight */}
-      <div className="absolute top-0 right-0 -mr-8 -mt-8 w-28 h-28 rounded-full bg-white/2 blur-2xl pointer-events-none group-hover:bg-gold/5 transition-colors" />
+      {/* Subtle ambient lighting */}
+      <div className="absolute top-0 right-0 -mr-6 -mt-6 w-24 h-24 rounded-full bg-gold/5 blur-2xl pointer-events-none group-hover:bg-gold/10 transition-colors" />
 
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex items-start justify-between gap-4 relative z-10">
         <div>
-          <p className="text-xs font-medium text-[#A89F91] tracking-wider uppercase">
+          <p className="text-xs font-medium text-[#8E867B] tracking-wider uppercase">
             {title}
           </p>
-          <h4 suppressHydrationWarning className="text-2xl sm:text-3xl font-bold text-cream mt-1.5 font-sans tracking-tight">
+          <h4 suppressHydrationWarning className="text-2xl sm:text-3xl font-bold text-[#F7F4EE] mt-1.5 font-sans tracking-tight">
             {value}
           </h4>
         </div>
 
         {Icon && (
           <div
-            className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${style.iconBg} shadow-inner transition-transform group-hover:scale-105`}
+            className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 bg-[#1C1814] border border-[#2A241F] text-gold shadow-inner transition-transform group-hover:scale-105 group-hover:border-gold/40"
           >
-            <Icon className="w-6 h-6" />
+            <Icon className="w-5 h-5" />
           </div>
         )}
       </div>
 
       {(trend !== undefined || badgeText) && (
-        <div suppressHydrationWarning className="mt-4 pt-3 border-t border-[#25201B] flex items-center justify-between text-xs">
+        <div suppressHydrationWarning className="mt-4 pt-3 border-t border-[#221C16] flex items-center justify-between text-xs relative z-10">
           {trend !== undefined ? (
             <div suppressHydrationWarning className="flex items-center gap-1.5 font-medium">
               <span
                 suppressHydrationWarning
-                className={`inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-md text-[11px] font-semibold ${
+                className={`inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[11px] font-semibold ${
                   isPositive
-                    ? "bg-emerald-500/15 text-emerald-400"
-                    : "bg-rose-500/15 text-rose-400"
+                    ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
+                    : "bg-rose-500/10 text-rose-400 border border-rose-500/20"
                 }`}
               >
                 {isPositive ? (
@@ -95,7 +64,7 @@ export default function AdminStatsCard({
           )}
 
           {badgeText && (
-            <span suppressHydrationWarning className="text-[11px] font-medium text-gold bg-gold/10 px-2 py-0.5 rounded-md">
+            <span suppressHydrationWarning className="text-[11px] font-medium text-gold bg-gold/10 border border-gold/20 px-2.5 py-0.5 rounded-full">
               {badgeText}
             </span>
           )}
