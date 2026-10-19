@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -8,7 +8,7 @@ import SectionReveal from "@/components/shared/SectionReveal";
 import MagneticButton from "@/components/shared/MagneticButton";
 
 // Category items structured exactly as on therameshwaramcafe.org/menu/
-const menuSections = [
+const defaultMenuSections = [
   {
     id: "morning-show",
     title: "Stars of the Morning\nShow",
@@ -204,10 +204,17 @@ function MenuRowCarousel({ items }) {
               />
             </div>
 
-            {/* Clean Serif Caption below the image */}
-            <h3 className="font-serif text-base sm:text-xl text-espresso mt-2.5 sm:mt-3 font-normal tracking-wide">
-              {item.title}
-            </h3>
+            {/* Clean Serif Caption below the image with live price tag */}
+            <div className="flex items-center justify-between mt-2.5 sm:mt-3 gap-2">
+              <h3 className="font-serif text-base sm:text-xl text-espresso font-normal tracking-wide">
+                {item.title}
+              </h3>
+              {item.price && (
+                <span className="font-mono text-xs sm:text-sm font-semibold text-espresso bg-espresso/5 border border-espresso/10 px-2.5 py-0.5 rounded-full shrink-0">
+                  ₹{item.price}
+                </span>
+              )}
+            </div>
           </div>
         ))}
       </div>
@@ -256,6 +263,105 @@ function MenuRowCarousel({ items }) {
 }
 
 export default function MenuView() {
+  const [sections, setSections] = useState(defaultMenuSections);
+
+  const syncLiveItems = useCallback((liveItems) => {
+    if (!Array.isArray(liveItems) || liveItems.length === 0) return;
+
+    setSections((prev) => {
+      return prev.map((sec) => {
+        const secId = sec.id;
+        const matchingLive = liveItems.filter((item) => {
+          if (!item.isAvailable) return false;
+          const cat = (item.category || "").toLowerCase();
+          if (secId === "morning-show") {
+            return cat.includes("morning") || cat.includes("dosa") || cat.includes("idli");
+          }
+          if (secId === "bite-sized") {
+            return cat.includes("bite") || cat.includes("vada") || cat.includes("snack");
+          }
+          if (secId === "grand-finale") {
+            return cat.includes("finale") || cat.includes("comfort") || cat.includes("coffee") || cat.includes("rice") || cat.includes("dessert");
+          }
+          return false;
+        });
+
+        // Merge: update default items with live price & title
+        const map = new Map();
+        sec.items.forEach((item) => {
+          const match = liveItems.find(
+            (li) => li.title?.toLowerCase().trim() === item.title?.toLowerCase().trim()
+          );
+          if (match) {
+            if (match.isAvailable) {
+              map.set(item.id, {
+                ...item,
+                title: match.title,
+                price: match.price,
+                image: match.image || item.image,
+              });
+            }
+          } else {
+            map.set(item.id, item);
+          }
+        });
+
+        // Append any new dishes created by admin in this category
+        matchingLive.forEach((li) => {
+          const exists = Array.from(map.values()).some(
+            (m) => m.title?.toLowerCase().trim() === li.title?.toLowerCase().trim()
+          );
+          if (!exists) {
+            map.set(li.id, {
+              id: li.id,
+              title: li.title,
+              price: li.price,
+              image: li.image || "/images/food-dosa.jpg",
+            });
+          }
+        });
+
+        return { ...sec, items: Array.from(map.values()) };
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    // 1. Instant check from localStorage
+    try {
+      const stored = localStorage.getItem("chaat_admin_menu");
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          syncLiveItems(parsed);
+        }
+      }
+    } catch {}
+
+    // 2. Fetch live data from /api/menu
+    fetch("/api/menu")
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.success && Array.isArray(json.items)) {
+          syncLiveItems(json.items);
+        }
+      })
+      .catch(() => {});
+
+    // 3. Listen to live broadcast channel from Admin panel
+    if (typeof window !== "undefined" && "BroadcastChannel" in window) {
+      const channel = new BroadcastChannel("chaat_admin_bus");
+      channel.onmessage = (e) => {
+        if (e.data?.type?.startsWith("MENU_")) {
+          fetch("/api/menu")
+            .then((r) => r.json())
+            .then((j) => j.success && syncLiveItems(j.items))
+            .catch(() => {});
+        }
+      };
+      return () => channel.close();
+    }
+  }, [syncLiveItems]);
   return (
     <div className="bg-cream text-espresso min-h-screen overflow-hidden">
       {/* =====================================================================
@@ -315,7 +421,7 @@ export default function MenuView() {
           2. MENU CATEGORY ROWS (STARS OF THE MORNING SHOW, BITE-SIZED, GRAND FINALE)
           ===================================================================== */}
       <div className="max-w-6xl mx-auto px-6 lg:px-10 space-y-24 sm:space-y-32 py-12 sm:py-20">
-        {menuSections.map((section) => (
+        {sections.map((section) => (
           <section key={section.id} className="relative">
             {/* Header Layout: Left Title, Right Subtitle */}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 sm:mb-10">
