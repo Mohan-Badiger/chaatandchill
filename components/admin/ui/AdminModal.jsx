@@ -41,14 +41,14 @@ export default function AdminModal({
 
       {/* Modal Dialog Box */}
       <div
-        className={`relative w-full ${maxWidth} bg-[#161412] border border-[#2E2721] rounded-2xl shadow-2xl shadow-black/80 z-10 overflow-hidden flex flex-col max-h-[90vh] animate-in zoom-in-95 duration-200`}
+        className={`relative w-full ${maxWidth} bg-[#13110F] border border-[#26201A] rounded-2xl shadow-2xl shadow-black/80 z-10 overflow-hidden flex flex-col max-h-[90vh] animate-in zoom-in-95 duration-200`}
       >
         {/* Header */}
-        <div className="px-6 py-4 border-b border-[#2A241F] flex items-center justify-between gap-4 shrink-0 bg-[#1A1714]">
+        <div className="px-6 py-4 border-b border-[#201A15] flex items-center justify-between gap-4 shrink-0 bg-[#161412]">
           <div>
-            <h3 className="font-semibold text-lg text-[#FAF5EF]">{title}</h3>
+            <h3 className="font-semibold text-lg text-[#F7F4EE]">{title}</h3>
             {subtitle && (
-              <p className="text-xs text-[#A89F91] mt-0.5">{subtitle}</p>
+              <p className="text-xs text-[#8E867B] mt-0.5">{subtitle}</p>
             )}
           </div>
           <button
