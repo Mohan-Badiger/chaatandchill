@@ -281,7 +281,7 @@ export default function AdminMenuPage() {
             <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
               <div>
                 <div className="flex items-start justify-between gap-3">
-                  <h3 className="font-semibold text-base sm:text-lg text-[#FAF5EF] leading-snug line-clamp-1 group-hover:text-amber-200/95 transition-colors">
+                  <h3 className="font-semibold text-base sm:text-lg text-cream leading-snug line-clamp-1 group-hover:text-amber-200/95 transition-colors">
                     {item.title}
                   </h3>
                   <span className="font-mono text-base font-bold text-amber-400 shrink-0">
@@ -325,7 +325,7 @@ export default function AdminMenuPage() {
                 <button
                   type="button"
                   onClick={() => handleOpenEdit(item)}
-                  className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#231F1B] hover:bg-[#2E2822] text-[#FAF5EF] hover:text-amber-300 border border-[#352D25] hover:border-amber-400/40 text-xs font-semibold transition-all shadow-sm cursor-pointer"
+                  className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#231F1B] hover:bg-[#2E2822] text-cream hover:text-amber-300 border border-[#352D25] hover:border-amber-400/40 text-xs font-semibold transition-all shadow-sm cursor-pointer"
                 >
                   <Edit2 className="w-3.5 h-3.5 text-amber-400" />
                   <span>Edit</span>
@@ -337,7 +337,7 @@ export default function AdminMenuPage() {
 
         {filteredItems.length === 0 && (
           <div className="col-span-full py-16 text-center border border-dashed border-[#2A241F] rounded-2xl bg-[#141210]">
-            <p className="text-sm font-semibold text-[#FAF5EF]">No dishes found</p>
+            <p className="text-sm font-semibold text-cream">No dishes found</p>
             <p className="text-xs text-[#8E867B] mt-1">Try adjusting your search or filters to see menu items.</p>
           </div>
         )}
@@ -422,7 +422,7 @@ export default function AdminMenuPage() {
         <form onSubmit={handleSaveItem} className="space-y-4">
           {/* Dish Title * */}
           <div>
-            <label className="block text-xs font-semibold text-[#FAF5EF] mb-1.5">
+            <label className="block text-xs font-semibold text-cream mb-1.5">
               Dish Title <span className="text-amber-400">*</span>
             </label>
             <input
@@ -431,24 +431,24 @@ export default function AdminMenuPage() {
               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
               placeholder="e.g. Mysore Ghee Masala Dosa"
               required
-              className="w-full bg-[#1C1814] border border-[#2E2721] focus:border-amber-400 rounded-xl px-3.5 py-2.5 text-xs text-[#FAF5EF] placeholder:text-[#5E5548] focus:outline-none transition-colors"
+              className="w-full bg-[#1C1814] border border-[#2E2721] focus:border-amber-400 rounded-xl px-3.5 py-2.5 text-xs text-cream placeholder:text-[#5E5548] focus:outline-none transition-colors"
             />
           </div>
 
           {/* Category * & Outlet Availability */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-semibold text-[#FAF5EF] mb-1.5">
+              <label className="block text-xs font-semibold text-cream mb-1.5">
                 Category <span className="text-amber-400">*</span>
               </label>
               <select
                 value={formData.category}
                 onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                 required
-                className="w-full bg-[#1C1814] border border-[#2E2721] focus:border-amber-400 rounded-xl px-3.5 py-2.5 text-xs text-[#FAF5EF] focus:outline-none transition-colors cursor-pointer"
+                className="w-full bg-[#1C1814] border border-[#2E2721] focus:border-amber-400 rounded-xl px-3.5 py-2.5 text-xs text-cream focus:outline-none transition-colors cursor-pointer"
               >
                 {categories.map((c) => (
-                  <option key={c.id} value={c.name} className="bg-[#1C1814] text-[#FAF5EF]">
+                  <option key={c.id} value={c.name} className="bg-[#1C1814] text-cream">
                     {c.name}
                   </option>
                 ))}
@@ -456,24 +456,24 @@ export default function AdminMenuPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-[#FAF5EF] mb-1.5">
+              <label className="block text-xs font-semibold text-cream mb-1.5">
                 Outlet Availability
               </label>
               <select
                 value={formData.outlet || "ALL"}
                 onChange={(e) => setFormData({ ...formData, outlet: e.target.value })}
-                className="w-full bg-[#1C1814] border border-[#2E2721] focus:border-amber-400 rounded-xl px-3.5 py-2.5 text-xs text-[#FAF5EF] focus:outline-none transition-colors cursor-pointer"
+                className="w-full bg-[#1C1814] border border-[#2E2721] focus:border-amber-400 rounded-xl px-3.5 py-2.5 text-xs text-cream focus:outline-none transition-colors cursor-pointer"
               >
-                <option value="ALL" className="bg-[#1C1814] text-[#FAF5EF]">All Outlets</option>
-                <option value="Jamakhandi" className="bg-[#1C1814] text-[#FAF5EF]">Chaat and Chill, Jamakhandi</option>
-                <option value="Rabakavi" className="bg-[#1C1814] text-[#FAF5EF]">The Shreeshailam Cafe, Rabakavi</option>
+                <option value="ALL" className="bg-[#1C1814] text-cream">All Outlets</option>
+                <option value="Jamakhandi" className="bg-[#1C1814] text-cream">Chaat and Chill, Jamakhandi</option>
+                <option value="Rabakavi" className="bg-[#1C1814] text-cream">The Shreeshailam Cafe, Rabakavi</option>
               </select>
             </div>
           </div>
 
           {/* Menu Price (₹) * */}
           <div>
-            <label className="block text-xs font-semibold text-[#FAF5EF] mb-1.5">
+            <label className="block text-xs font-semibold text-cream mb-1.5">
               Menu Price (₹) <span className="text-amber-400">*</span>
             </label>
             <div className="relative">
@@ -487,7 +487,7 @@ export default function AdminMenuPage() {
                 placeholder="150"
                 min="0"
                 required
-                className="w-full bg-[#1C1814] border border-[#2E2721] focus:border-amber-400 rounded-xl pl-8 pr-3.5 py-2.5 text-xs font-mono text-[#FAF5EF] focus:outline-none transition-colors"
+                className="w-full bg-[#1C1814] border border-[#2E2721] focus:border-amber-400 rounded-xl pl-8 pr-3.5 py-2.5 text-xs font-mono text-cream focus:outline-none transition-colors"
               />
             </div>
           </div>
@@ -499,7 +499,7 @@ export default function AdminMenuPage() {
               <div className="flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-amber-400" />
                 <div>
-                  <span className="text-xs font-semibold text-[#FAF5EF] block">Bestseller</span>
+                  <span className="text-xs font-semibold text-cream block">Bestseller</span>
                   <span className="text-[10px] text-[#8E867B]">Highlight as customer favorite</span>
                 </div>
               </div>
@@ -520,7 +520,7 @@ export default function AdminMenuPage() {
                   }`}
                 />
                 <div>
-                  <span className="text-xs font-semibold text-[#FAF5EF] block">
+                  <span className="text-xs font-semibold text-cream block">
                     {formData.isAvailable ? "In Stock" : "Sold Out"}
                   </span>
                   <span className="text-[10px] text-[#8E867B]">
@@ -539,7 +539,7 @@ export default function AdminMenuPage() {
 
           {/* Dish Image Presets */}
           <div>
-            <label className="block text-xs font-semibold text-[#FAF5EF] mb-1.5">
+            <label className="block text-xs font-semibold text-cream mb-1.5">
               Dish Photography
             </label>
             <div className="flex items-center gap-3 mb-2 p-2 rounded-xl bg-[#14110F] border border-[#25201B]">
@@ -552,7 +552,7 @@ export default function AdminMenuPage() {
                 />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-[11px] font-medium text-[#FAF5EF] truncate">
+                <p className="text-[11px] font-medium text-cream truncate">
                   {imagePresets.find((p) => p.path === formData.image)?.label || "Custom Image"}
                 </p>
                 <p className="text-[10px] text-[#8E867B] truncate font-mono">
@@ -570,7 +570,7 @@ export default function AdminMenuPage() {
                   className={`p-1.5 rounded-lg border text-center transition-all cursor-pointer ${
                     formData.image === preset.path
                       ? "bg-amber-400/20 border-amber-400 text-amber-300 font-semibold"
-                      : "bg-[#191613] border-[#25201B] text-[#8E867B] hover:text-[#FAF5EF] hover:border-[#382F26]"
+                      : "bg-[#191613] border-[#25201B] text-[#8E867B] hover:text-cream hover:border-[#382F26]"
                   }`}
                 >
                   <span className="text-[10px] block truncate">{preset.label}</span>
@@ -581,7 +581,7 @@ export default function AdminMenuPage() {
 
           {/* Description (Optional) */}
           <div>
-            <label className="block text-xs font-semibold text-[#FAF5EF] mb-1.5">
+            <label className="block text-xs font-semibold text-cream mb-1.5">
               Description (Optional)
             </label>
             <textarea
@@ -589,7 +589,7 @@ export default function AdminMenuPage() {
               value={formData.description || ""}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               placeholder="Short notes about spices, ingredients, or story..."
-              className="w-full bg-[#1C1814] border border-[#2E2721] focus:border-amber-400 rounded-xl p-3 text-xs text-[#FAF5EF] placeholder:text-[#5E5548] focus:outline-none transition-colors"
+              className="w-full bg-[#1C1814] border border-[#2E2721] focus:border-amber-400 rounded-xl p-3 text-xs text-cream placeholder:text-[#5E5548] focus:outline-none transition-colors"
             />
           </div>
         </form>
