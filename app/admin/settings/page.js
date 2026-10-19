@@ -92,7 +92,7 @@ export default function AdminSettingsPage() {
             {OUTLETS.filter((o) => o.id !== "ALL").map((outlet) => (
               <div
                 key={outlet.id}
-                className="p-4 rounded-xl bg-espresso border border-[#2A241F] space-y-2"
+                className="p-4 rounded-xl bg-[#13110F] border border-[#241F1A] space-y-2 hover:border-[#382F24] transition-colors"
               >
                 <div className="flex items-center justify-between">
                   <h3 className="font-semibold text-sm text-cream">
@@ -105,7 +105,7 @@ export default function AdminSettingsPage() {
                 <p className="text-xs text-[#A89F91]">
                   {outlet.address}
                 </p>
-                <div className="pt-2 border-t border-[#25201B] flex justify-between text-xs text-[#8E867B]">
+                <div className="pt-2 border-t border-[#241F1A] flex justify-between text-xs text-[#8E867B]">
                   <span>Timing: {outlet.timing}</span>
                   <span className="font-mono text-gold">{outlet.phone}</span>
                 </div>
@@ -128,7 +128,7 @@ export default function AdminSettingsPage() {
                 type="text"
                 value={settings.gstNumber}
                 onChange={(e) => setSettings({ ...settings, gstNumber: e.target.value })}
-                className="w-full mt-1.5 bg-[#1C1814] border border-[#2E2721] rounded-xl px-3 py-2 text-xs font-mono uppercase text-cream focus:border-gold focus:outline-hidden"
+                className="w-full mt-1.5 bg-[#181512] border border-[#26201B] rounded-xl px-3 py-2 text-xs font-mono uppercase text-cream focus:border-gold focus:outline-hidden"
               />
             </div>
 
@@ -140,7 +140,7 @@ export default function AdminSettingsPage() {
                 type="number"
                 value={settings.gstRate}
                 onChange={(e) => setSettings({ ...settings, gstRate: Number(e.target.value) })}
-                className="w-full mt-1.5 bg-[#1C1814] border border-[#2E2721] rounded-xl px-3 py-2 text-xs font-mono text-cream focus:border-gold focus:outline-hidden"
+                className="w-full mt-1.5 bg-[#181512] border border-[#26201B] rounded-xl px-3 py-2 text-xs font-mono text-cream focus:border-gold focus:outline-hidden"
               />
             </div>
 
@@ -152,7 +152,7 @@ export default function AdminSettingsPage() {
                 type="number"
                 value={settings.serviceCharge}
                 onChange={(e) => setSettings({ ...settings, serviceCharge: Number(e.target.value) })}
-                className="w-full mt-1.5 bg-[#1C1814] border border-[#2E2721] rounded-xl px-3 py-2 text-xs font-mono text-cream focus:border-gold focus:outline-hidden"
+                className="w-full mt-1.5 bg-[#181512] border border-[#26201B] rounded-xl px-3 py-2 text-xs font-mono text-cream focus:border-gold focus:outline-hidden"
               />
             </div>
           </div>
@@ -172,7 +172,7 @@ export default function AdminSettingsPage() {
                 <select
                   value={settings.receiptWidth}
                   onChange={(e) => setSettings({ ...settings, receiptWidth: e.target.value })}
-                  className="w-full mt-1.5 bg-[#1C1814] border border-[#2E2721] rounded-xl px-3 py-2 text-xs text-cream focus:outline-hidden"
+                  className="w-full mt-1.5 bg-[#181512] border border-[#26201B] rounded-xl px-3 py-2 text-xs text-cream focus:outline-hidden"
                 >
                   <option value="80mm">Standard 80mm High-Speed Thermal</option>
                   <option value="58mm">Compact 58mm Mobile Bluetooth</option>
