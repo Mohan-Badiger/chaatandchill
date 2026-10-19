@@ -22,7 +22,6 @@ import {
   IndianRupee,
   Eye,
   SlidersHorizontal,
-  Zap,
 } from "lucide-react";
 
 export default function AdminOrdersPage() {
@@ -32,7 +31,6 @@ export default function AdminOrdersPage() {
     updateOrderStatus,
     markOrderPaid,
     setIsPosOpen,
-    simulateIncomingLiveOrder,
     addToast,
   } = useAdmin();
 
@@ -81,15 +79,6 @@ export default function AdminOrdersPage() {
         </div>
 
         <div className="flex items-center gap-3">
-          <AdminButton
-            variant="secondary"
-            size="sm"
-            icon={Zap}
-            onClick={simulateIncomingLiveOrder}
-          >
-            Live Order
-          </AdminButton>
-
           <AdminButton
             variant="primary"
             size="sm"
