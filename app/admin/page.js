@@ -39,12 +39,9 @@ export default function AdminDashboardPage() {
     selectedOutlet,
     orders,
     tables,
-    reservations,
     inventory,
     menuItems,
     updateOrderStatus,
-    setIsPosOpen,
-    simulateIncomingLiveOrder,
   } = useAdmin();
 
   const mounted = useIsMounted();
@@ -112,53 +109,11 @@ export default function AdminDashboardPage() {
 
   return (
     <div className="space-y-6">
-      {/* Top Banner & Welcome Greeting */}
-      <div className="relative overflow-hidden rounded-3xl bg-linear-to-r from-[#1E1914] via-[#1A1612] to-[#141210] border border-[#2E2721] p-6 sm:p-8 shadow-xl">
-        <div className="absolute top-0 right-0 w-80 h-80 bg-gold/5 rounded-full blur-3xl pointer-events-none" />
-
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase bg-gold/15 text-[#E6BC65] border border-gold/30">
-                Live Operations • {selectedOutlet === "ALL" ? "Consolidated" : selectedOutlet}
-              </span>
-              <span suppressHydrationWarning className="text-xs text-[#8E867B]">
-                {new Date().toLocaleDateString("en-IN", {
-                  weekday: "long",
-                  year: "numeric",
-                  month: "short",
-                  day: "numeric",
-                })}
-              </span>
-            </div>
-            <h1 className="text-2xl sm:text-3xl font-google-sans font-bold tracking-tight text-cream mt-2">
-              Namaskara, {currentUser?.name || "Manager"}!
-            </h1>
-            <p className="text-xs sm:text-sm text-[#A89F91] mt-1 max-w-xl">
-              Live orders are streaming in. All stone-ground batters, Nandini ghee roasts, and brass filter coffees are running at peak velocity.
-            </p>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-3">
-            <AdminButton
-              variant="secondary"
-              size="sm"
-              icon={Zap}
-              onClick={simulateIncomingLiveOrder}
-            >
-              Live Order
-            </AdminButton>
-
-            <AdminButton
-              variant="primary"
-              size="sm"
-              icon={ShoppingBag}
-              onClick={() => setIsPosOpen(true)}
-            >
-              Punch New Order
-            </AdminButton>
-          </div>
-        </div>
+      {/* Welcome Greeting */}
+      <div className="pt-1">
+        <h1 className="text-2xl sm:text-3xl font-google-sans font-bold tracking-tight text-cream">
+          Namaskara, {currentUser?.name || "Mohan"}
+        </h1>
       </div>
 
       {/* KPI Metric Cards */}
