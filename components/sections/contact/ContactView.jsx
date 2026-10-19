@@ -40,12 +40,43 @@ export default function ContactView() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
 
     setIsSubmitting(true);
-    setTimeout(() => {
+
+    try {
+      await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      // Optimistic local storage update & broadcast for instant admin alert
+      if (typeof window !== "undefined") {
+        const notifStored = localStorage.getItem("chaat_admin_notifs");
+        const currentNotifs = notifStored ? JSON.parse(notifStored) : [];
+        const newNotif = {
+          id: "notif-" + Date.now(),
+          type: "review",
+          priority: "normal",
+          title: `💬 New Feedback from ${formData.name}`,
+          message: `${formData.inquiryType}: "${formData.message.slice(0, 60)}..."`,
+          time: "Just now",
+          read: false,
+        };
+        localStorage.setItem("chaat_admin_notifs", JSON.stringify([newNotif, ...currentNotifs]));
+
+        if ("BroadcastChannel" in window) {
+          const channel = new BroadcastChannel("chaat_admin_bus");
+          channel.postMessage({ type: "NOTIFICATION_ADDED", payload: newNotif, timestamp: Date.now() });
+          channel.close();
+        }
+      }
+    } catch (err) {
+      console.warn("[ContactView] Submission error:", err);
+    } finally {
       setIsSubmitting(false);
       setIsSuccess(true);
       setFormData({
@@ -59,7 +90,7 @@ export default function ContactView() {
       setTimeout(() => {
         setIsSuccess(false);
       }, 8000);
-    }, 800);
+    }
   };
 
   return (

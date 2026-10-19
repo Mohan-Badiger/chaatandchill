@@ -86,47 +86,61 @@ export default function ReservationModal() {
       );
     setBookingCode(randomCode);
 
-    // Simulate server request & synchronize with Admin Panel
-    setTimeout(() => {
-      try {
-        const stored = localStorage.getItem("chaat_admin_reservations");
-        const currentReservations = stored ? JSON.parse(stored) : [];
-        const newBooking = {
-          id: "RES-" + String(8900 + currentReservations.length + 1),
-          bookingCode: randomCode,
-          outlet: formData.location?.includes("Rabakavi") ? "Rabakavi" : "Jamakhandi",
-          name: formData.name,
-          phone: formData.phone,
-          email: formData.email || "",
-          guests: Number(formData.guests) || 2,
-          date: formData.date || todayStr,
-          time: formData.time,
-          tableAssigned: "T-02",
-          status: "confirmed",
-          notes: "Booked online via Website Concierge",
-          source: "Website Concierge",
-          createdAt: new Date().toISOString(),
-        };
-        localStorage.setItem("chaat_admin_reservations", JSON.stringify([newBooking, ...currentReservations]));
+    // Synchronize directly with backend server API & admin panel
+    const newBooking = {
+      id: "RES-" + Date.now().toString().slice(-4),
+      bookingCode: randomCode,
+      outlet: formData.location?.includes("Rabakavi") ? "Rabakavi" : "Jamakhandi",
+      name: formData.name,
+      phone: formData.phone,
+      email: formData.email || "",
+      guests: Number(formData.guests) || 2,
+      date: formData.date || todayStr,
+      time: formData.time,
+      tableAssigned: "T-02",
+      status: "confirmed",
+      notes: "Booked online via Website Concierge",
+      source: "Website Concierge",
+      createdAt: new Date().toISOString(),
+    };
 
-        // Add to admin notifications
-        const notifStored = localStorage.getItem("chaat_admin_notifs");
-        const currentNotifs = notifStored ? JSON.parse(notifStored) : [];
-        const newNotif = {
-          id: "notif-" + Date.now(),
-          type: "reservation",
-          priority: "urgent",
-          title: `New Online Reservation: ${randomCode}`,
-          message: `${formData.name} booked a table for ${formData.guests} guests at ${formData.time} (${newBooking.outlet}).`,
-          time: "Just now",
-          read: false,
-        };
-        localStorage.setItem("chaat_admin_notifs", JSON.stringify([newNotif, ...currentNotifs]));
-      } catch (err) {
-        // ignore storage errors
-      }
-      setStep("success");
-    }, 1500);
+    fetch("/api/reservations", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newBooking),
+    })
+      .catch((err) => console.warn("[ReservationModal] Server sync error:", err))
+      .finally(() => {
+        // Also save to local storage for instant feedback
+        try {
+          const stored = localStorage.getItem("chaat_admin_reservations");
+          const currentReservations = stored ? JSON.parse(stored) : [];
+          localStorage.setItem("chaat_admin_reservations", JSON.stringify([newBooking, ...currentReservations]));
+
+          const notifStored = localStorage.getItem("chaat_admin_notifs");
+          const currentNotifs = notifStored ? JSON.parse(notifStored) : [];
+          const newNotif = {
+            id: "notif-" + Date.now(),
+            type: "reservation",
+            priority: "urgent",
+            title: `New Online Reservation: ${randomCode}`,
+            message: `${formData.name} booked a table for ${formData.guests} guests at ${formData.time} (${newBooking.outlet}).`,
+            time: "Just now",
+            read: false,
+          };
+          localStorage.setItem("chaat_admin_notifs", JSON.stringify([newNotif, ...currentNotifs]));
+
+          // Broadcast to admin dashboard if open
+          if (typeof window !== "undefined" && "BroadcastChannel" in window) {
+            const channel = new BroadcastChannel("chaat_admin_bus");
+            channel.postMessage({ type: "RESERVATION_ADDED", payload: newBooking, timestamp: Date.now() });
+            channel.close();
+          }
+        } catch {
+          // ignore
+        }
+        setStep("success");
+      });
   };
 
   // Get current date in YYYY-MM-DD for min-date attribute

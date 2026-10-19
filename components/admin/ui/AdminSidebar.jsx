@@ -11,17 +11,11 @@ import {
   LayoutDashboard,
   ShoppingBag,
   Grid,
-  CalendarCheck,
   Utensils,
-  Layers,
   Package,
   CreditCard,
   Sparkles,
-  Users,
-  Briefcase,
-  MessageSquare,
   Globe,
-  Bell,
   Settings,
   ChevronLeft,
   ChevronRight,
@@ -38,9 +32,7 @@ export default function AdminSidebar() {
     mobileMenuOpen,
     setMobileMenuOpen,
     orders,
-    reservations,
     inventory,
-    notifications,
   } = useAdmin();
 
   const mounted = useIsMounted();
@@ -50,15 +42,9 @@ export default function AdminSidebar() {
     (o) => o.status === "pending" || o.status === "preparing"
   ).length;
 
-  const todayReservationsCount = (reservations || []).filter(
-    (r) => r.status === "confirmed"
-  ).length;
-
   const lowStockCount = (inventory || []).filter(
     (i) => i.status === "low" || i.status === "critical"
   ).length;
-
-  const unreadNotifsCount = (notifications || []).filter((n) => !n.read).length;
 
   const navGroups = [
     {
@@ -73,20 +59,12 @@ export default function AdminSidebar() {
           badgeVariant: "amber",
         },
         { label: "Tables & Floor Plan", href: "/admin/tables", icon: Grid },
-        {
-          label: "Reservations",
-          href: "/admin/reservations",
-          icon: CalendarCheck,
-          badge: todayReservationsCount > 0 ? todayReservationsCount : null,
-          badgeVariant: "gold",
-        },
       ],
     },
     {
-      group: "Menu & Food",
+      group: "Menu & Inventory",
       items: [
         { label: "Menu Catalog", href: "/admin/menu", icon: Utensils },
-        { label: "Categories", href: "/admin/categories", icon: Layers },
         {
           label: "Raw Inventory",
           href: "/admin/inventory",
@@ -97,26 +75,16 @@ export default function AdminSidebar() {
       ],
     },
     {
-      group: "Sales & CRM",
+      group: "Sales & Marketing",
       items: [
         { label: "Payments & Invoices", href: "/admin/payments", icon: CreditCard },
         { label: "Offers & Coupons", href: "/admin/offers", icon: Sparkles },
-        { label: "Customers & Loyalty", href: "/admin/customers", icon: Users },
       ],
     },
     {
       group: "Management",
       items: [
-        { label: "Staff & Shifts", href: "/admin/staff", icon: Briefcase },
-        { label: "Reviews & Feedback", href: "/admin/reviews", icon: MessageSquare },
         { label: "Website Content CMS", href: "/admin/content", icon: Globe },
-        {
-          label: "Notifications & Audit",
-          href: "/admin/notifications",
-          icon: Bell,
-          badge: unreadNotifsCount > 0 ? unreadNotifsCount : null,
-          badgeVariant: "white",
-        },
         { label: "Settings & Outlets", href: "/admin/settings", icon: Settings },
       ],
     },

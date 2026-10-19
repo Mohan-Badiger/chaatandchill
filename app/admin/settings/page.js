@@ -205,7 +205,7 @@ export default function AdminSettingsPage() {
                 Factory Reset Demo Database
               </p>
               <p className="text-xs text-[#8E867B] mt-0.5">
-                Resets all live orders, tables, menu recipes, and reservations back to default seed state.
+                Resets all live orders, tables, and menu catalog back to default seed state.
               </p>
             </div>
 

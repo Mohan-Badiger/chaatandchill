@@ -1,6 +1,6 @@
 {
-  "version": 6,
-  "lastModified": "2026-10-12T16:08:37.089Z",
+  "version": 23,
+  "lastModified": "2026-10-19T17:01:35.407Z",
   "currentUser": {
     "id": "admin-master",
     "name": "Mohan",
@@ -395,6 +395,111 @@
     }
   ],
   "orders": [
+    {
+      "id": "ORD-9844",
+      "timestamp": "2026-10-19T16:49:29.486Z",
+      "status": "pending",
+      "paymentStatus": "paid",
+      "outlet": "Rabakavi",
+      "type": "Dine-in",
+      "table": "T-02",
+      "customer": {
+        "name": "Manoj Nayak",
+        "phone": "+91 9882979476"
+      },
+      "items": [
+        {
+          "id": "item-003",
+          "title": "Royal Pani Puri Tasting Flight (8 Pcs)",
+          "quantity": 1,
+          "price": 150,
+          "notes": "Special request"
+        },
+        {
+          "id": "item-113",
+          "title": "Traditional Bisi Bele Bath",
+          "quantity": 1,
+          "price": 130,
+          "notes": ""
+        }
+      ],
+      "subtotal": 280,
+      "tax": 14,
+      "discount": 0,
+      "total": 294,
+      "paymentMode": "UPI / PhonePe Live",
+      "kotPrinted": false
+    },
+    {
+      "id": "ORD-9614",
+      "timestamp": "2026-10-19T16:49:28.270Z",
+      "status": "pending",
+      "paymentStatus": "paid",
+      "outlet": "Rabakavi",
+      "type": "Takeaway",
+      "table": "T-02",
+      "customer": {
+        "name": "Manoj Nayak",
+        "phone": "+91 9889910693"
+      },
+      "items": [
+        {
+          "id": "item-105",
+          "title": "Ghee Khali Dosa (Set of 2)",
+          "quantity": 1,
+          "price": 140,
+          "notes": "Special request"
+        },
+        {
+          "id": "item-105",
+          "title": "Ghee Khali Dosa (Set of 2)",
+          "quantity": 1,
+          "price": 140,
+          "notes": ""
+        }
+      ],
+      "subtotal": 280,
+      "tax": 14,
+      "discount": 0,
+      "total": 294,
+      "paymentMode": "UPI / PhonePe Live",
+      "kotPrinted": false
+    },
+    {
+      "id": "ORD-9593",
+      "timestamp": "2026-10-19T16:49:01.070Z",
+      "status": "pending",
+      "paymentStatus": "paid",
+      "outlet": "Jamakhandi",
+      "type": "Dine-in",
+      "table": "T-02",
+      "customer": {
+        "name": "Sunita Deshmukh",
+        "phone": "+91 9883798389"
+      },
+      "items": [
+        {
+          "id": "item-001",
+          "title": "Artisanal Papdi Chaat",
+          "quantity": 1,
+          "price": 180,
+          "notes": "Special request"
+        },
+        {
+          "id": "item-103",
+          "title": "Open Butter Masala Dosa",
+          "quantity": 1,
+          "price": 170,
+          "notes": ""
+        }
+      ],
+      "subtotal": 350,
+      "tax": 17.5,
+      "discount": 0,
+      "total": 367.5,
+      "paymentMode": "UPI / PhonePe Live",
+      "kotPrinted": false
+    },
     {
       "id": "ORD-9660",
       "timestamp": "2026-10-04T13:50:43.324Z",
@@ -969,14 +1074,14 @@
       "id": "inv-01",
       "name": "KMF Nandini Pure Cow Ghee",
       "category": "Dairy & Fats",
-      "currentStock": 18.5,
+      "currentStock": 22.5,
       "unit": "Litres",
       "minThreshold": 15,
       "costPerUnit": 640,
       "supplier": "Karnataka Milk Federation (KMF) Hub",
       "supplierContact": "+91 80 2553 6611",
       "outlet": "Jamakhandi",
-      "status": "low",
+      "status": "in_stock",
       "lastRestocked": "2026-09-28"
     },
     {
@@ -1462,6 +1567,33 @@
     ]
   },
   "notifications": [
+    {
+      "id": "notif-1792428569505",
+      "type": "order",
+      "priority": "urgent",
+      "title": "⚡ New Order: ORD-9844",
+      "message": "Manoj Nayak placed an order for ₹294.",
+      "time": "Just now",
+      "read": false
+    },
+    {
+      "id": "notif-1792428568294",
+      "type": "order",
+      "priority": "urgent",
+      "title": "⚡ New Order: ORD-9614",
+      "message": "Manoj Nayak placed an order for ₹294.",
+      "time": "Just now",
+      "read": false
+    },
+    {
+      "id": "notif-1792428541172",
+      "type": "order",
+      "priority": "urgent",
+      "title": "⚡ New Order: ORD-9593",
+      "message": "Sunita Deshmukh placed an order for ₹367.5.",
+      "time": "Just now",
+      "read": false
+    },
     {
       "id": "notif-1791121843359",
       "type": "order",
