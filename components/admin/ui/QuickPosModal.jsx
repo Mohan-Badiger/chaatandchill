@@ -127,7 +127,7 @@ export default function QuickPosModal() {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search dishes..."
-              className="flex-1 bg-espresso border border-white/10 rounded-xl px-3 py-2 text-sm text-cream focus:outline-none"
+              className="flex-1 bg-[#141210] border border-[#26201B] rounded-xl px-3 py-2 text-sm text-[#F7F4EE] placeholder:text-[#6E665C] focus:border-[#D4A853]/50 focus:outline-hidden"
             />
           </div>
 
@@ -140,8 +140,8 @@ export default function QuickPosModal() {
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-3 py-1.5 rounded-lg whitespace-nowrap font-medium transition-colors cursor-pointer ${
                   selectedCategory === cat
-                    ? "bg-gold text-[#141210] font-semibold"
-                    : "bg-[#25201B] text-[#A89F91] hover:text-cream"
+                    ? "bg-[#D4A853] text-[#12100E] font-semibold shadow-xs"
+                    : "bg-[#141210] border border-[#221C16] text-[#8E867B] hover:text-[#EDE8E1]"
                 }`}
               >
                 {cat}
@@ -159,30 +159,30 @@ export default function QuickPosModal() {
                   onClick={() => addToCart(item)}
                   className={`p-3 rounded-xl border transition-all cursor-pointer select-none flex flex-col justify-between ${
                     inCartQty > 0
-                      ? "bg-gold/10 border-gold/50 shadow-md"
-                      : "bg-[#1C1814] border-[#2A241F] hover:border-[#3E342A]"
+                      ? "bg-[#D4A853]/10 border-[#D4A853]/40 shadow-md"
+                      : "bg-[#13110F] border-[#221C16] hover:border-[#382F26]"
                   }`}
                 >
                   <div>
                     <div className="flex items-start justify-between gap-1">
-                      <h5 className="font-medium text-xs text-cream line-clamp-1">
+                      <h5 className="font-medium text-xs text-[#F7F4EE] line-clamp-1">
                         {item.title}
                       </h5>
                       {inCartQty > 0 && (
-                        <span className="w-5 h-5 rounded-full bg-gold text-[#141210] font-bold text-[10px] flex items-center justify-center shrink-0">
+                        <span className="w-5 h-5 rounded-full bg-[#D4A853] text-[#12100E] font-bold text-[10px] flex items-center justify-center shrink-0">
                           {inCartQty}
                         </span>
                       )}
                     </div>
-                    <p className="text-[11px] text-[#A89F91] mt-0.5 line-clamp-1">
+                    <p className="text-[11px] text-[#8E867B] mt-0.5 line-clamp-1">
                       {item.category}
                     </p>
                   </div>
                   <div className="mt-2.5 flex items-center justify-between text-xs">
-                    <span className="font-semibold text-[#E6BC65] font-mono">
+                    <span className="font-semibold text-[#D4A853] font-mono">
                       ₹{item.price}
                     </span>
-                    <span className="text-[10px] text-[#8E867B] uppercase">
+                    <span className="text-[10px] text-[#7E7568] uppercase font-mono">
                       +{item.prepTime || 5}m
                     </span>
                   </div>
@@ -193,7 +193,7 @@ export default function QuickPosModal() {
         </div>
 
         {/* Right Col: Bill Summary & Checkout */}
-        <div className="lg:col-span-5 bg-[#141210] border border-[#2E2721] rounded-xl p-4 flex flex-col justify-between">
+        <div className="lg:col-span-5 bg-[#0D0B0A] border border-[#221C16] rounded-xl p-4 flex flex-col justify-between">
           <div className="space-y-3">
             {/* Order Type & Table */}
             <div className="grid grid-cols-2 gap-2">
@@ -204,7 +204,7 @@ export default function QuickPosModal() {
                 <select
                   value={orderType}
                   onChange={(e) => setOrderType(e.target.value)}
-                  className="w-full mt-1 bg-[#1C1814] border border-[#2E2721] rounded-lg px-2.5 py-1.5 text-xs text-cream"
+                  className="w-full mt-1 bg-[#141210] border border-[#241F1A] rounded-lg px-2.5 py-1.5 text-xs text-cream"
                 >
                   <option value="Dine-in">Dine-in</option>
                   <option value="Takeaway">Takeaway</option>
@@ -220,7 +220,7 @@ export default function QuickPosModal() {
                   <select
                     value={selectedTable}
                     onChange={(e) => setSelectedTable(e.target.value)}
-                    className="w-full mt-1 bg-[#1C1814] border border-[#2E2721] rounded-lg px-2.5 py-1.5 text-xs text-cream"
+                    className="w-full mt-1 bg-[#141210] border border-[#241F1A] rounded-lg px-2.5 py-1.5 text-xs text-cream"
                   >
                     {availableTables.map((t) => (
                       <option key={t.id} value={t.code}>
@@ -239,7 +239,7 @@ export default function QuickPosModal() {
                 value={customerName}
                 onChange={(e) => setCustomerName(e.target.value)}
                 placeholder="Guest Name (optional)"
-                className="w-full bg-[#1C1814] border border-white/10 rounded-lg px-2.5 py-1.5 text-xs text-cream focus:outline-none"
+                className="w-full bg-[#141210] border border-[#241F1A] rounded-lg px-2.5 py-1.5 text-xs text-cream focus:outline-hidden"
               />
             </div>
 
