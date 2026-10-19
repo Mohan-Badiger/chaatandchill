@@ -10,7 +10,6 @@ const emptySubscribe = () => () => {};
 const useIsMounted = () => useSyncExternalStore(emptySubscribe, () => true, () => false);
 import {
   Search,
-  Bell,
   PlusCircle,
   Zap,
   Menu,
@@ -31,18 +30,12 @@ export default function AdminHeader() {
     setIsCommandOpen,
     setIsPosOpen,
     simulateIncomingLiveOrder,
-    notifications,
-    markNotificationRead,
-    markAllNotificationsRead,
   } = useAdmin();
 
   const mounted = useIsMounted();
 
   const [outletMenuOpen, setOutletMenuOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
-  const [notifMenuOpen, setNotifMenuOpen] = useState(false);
-
-  const unreadNotifs = (notifications || []).filter((n) => !n.read);
 
   const currentOutletObj = OUTLETS.find((o) => o.id === selectedOutlet) || OUTLETS[0];
 
@@ -158,99 +151,6 @@ export default function AdminHeader() {
           <span className="hidden sm:inline">Quick POS</span>
         </button>
 
-        {/* Notifications Dropdown */}
-        <div className="relative">
-          <button
-            type="button"
-            onClick={() => {
-              setNotifMenuOpen((prev) => !prev);
-              setProfileMenuOpen(false);
-              setOutletMenuOpen(false);
-            }}
-            className="relative p-2 rounded-xl text-[#A89F91] hover:text-cream hover:bg-white/5 transition-colors cursor-pointer"
-            aria-label="Notifications"
-          >
-            <Bell className="w-4 h-4" />
-            {mounted && unreadNotifs.length > 0 && (
-              <span className="absolute -top-1 -right-1 min-w-4.25 h-4.25 px-1 rounded-full bg-[#1A1613] text-white border border-white/40 font-bold text-[9px] flex items-center justify-center shadow-lg ring-1 ring-[#12100E]">
-                {unreadNotifs.length}
-              </span>
-            )}
-          </button>
-
-          {notifMenuOpen && (
-            <>
-              <div
-                className="fixed inset-0 z-40"
-                onClick={() => setNotifMenuOpen(false)}
-              />
-              <div className="absolute right-0 mt-2 w-80 sm:w-96 bg-[#161412] border border-[#2E2721] rounded-2xl shadow-2xl z-50 overflow-hidden animate-in fade-in duration-150">
-                <div className="px-4 py-3 border-b border-[#25201B] flex items-center justify-between bg-espresso">
-                  <div className="flex items-center gap-2">
-                    <h4 className="font-semibold text-xs text-cream">
-                      Notifications
-                    </h4>
-                    {unreadNotifs.length > 0 && (
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-white/10 text-white border border-white/20">
-                        {unreadNotifs.length} new
-                      </span>
-                    )}
-                  </div>
-                  {unreadNotifs.length > 0 && (
-                    <button
-                      type="button"
-                      onClick={markAllNotificationsRead}
-                      className="text-[11px] text-gold hover:underline cursor-pointer"
-                    >
-                      Mark all read
-                    </button>
-                  )}
-                </div>
-
-                <div className="max-h-80 overflow-y-auto divide-y divide-[#231E19]">
-                  {notifications.length === 0 ? (
-                    <div className="p-6 text-center text-xs text-[#7E7568]">
-                      No notifications right now.
-                    </div>
-                  ) : (
-                    notifications.map((n) => (
-                      <div
-                        key={n.id}
-                        onClick={() => markNotificationRead(n.id)}
-                        className={`p-3.5 text-xs transition-colors cursor-pointer ${
-                          !n.read ? "bg-[#1E1915]" : "hover:bg-[#1C1814]"
-                        }`}
-                      >
-                        <div className="flex items-start justify-between gap-2">
-                          <p className={`font-semibold ${!n.read ? "text-cream" : "text-[#D8CEBF]"}`}>
-                            {n.title}
-                          </p>
-                          <span className="text-[10px] text-[#7E7568] whitespace-nowrap">
-                            {n.time}
-                          </span>
-                        </div>
-                        <p className="text-[#A89F91] text-[11px] mt-0.5 line-clamp-2">
-                          {n.message}
-                        </p>
-                      </div>
-                    ))
-                  )}
-                </div>
-
-                <div className="p-2.5 bg-[#141210] border-t border-[#25201B] text-center">
-                  <Link
-                    href="/admin/notifications"
-                    onClick={() => setNotifMenuOpen(false)}
-                    className="text-xs text-gold hover:underline font-medium"
-                  >
-                    View All Audit Logs & Notifications →
-                  </Link>
-                </div>
-              </div>
-            </>
-          )}
-        </div>
-
         {/* User Profile */}
         <div className="relative">
           <button
@@ -258,7 +158,6 @@ export default function AdminHeader() {
             onClick={() => {
               setProfileMenuOpen((prev) => !prev);
               setOutletMenuOpen(false);
-              setNotifMenuOpen(false);
             }}
             className="flex items-center gap-2.5 p-1 rounded-xl hover:bg-white/5 transition-colors cursor-pointer"
           >
