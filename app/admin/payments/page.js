@@ -24,6 +24,7 @@ export default function AdminPaymentsPage() {
   const {
     transactions,
     selectedOutlet,
+    processRefund,
     addToast,
   } = useAdmin();
 
@@ -81,14 +82,7 @@ export default function AdminPaymentsPage() {
     e.preventDefault();
     if (!selectedTxnForRefund) return;
 
-    setTransactions((prev) =>
-      prev.map((t) =>
-        t.id === selectedTxnForRefund.id
-          ? { ...t, status: "Refunded", refundReason: refundReason || "Customer Request" }
-          : t
-      )
-    );
-    addToast(`Refund of ₹${selectedTxnForRefund.amount} initiated for ${selectedTxnForRefund.id}`, "warning");
+    processRefund(selectedTxnForRefund.id, refundReason || "Customer Request");
     setSelectedTxnForRefund(null);
     setRefundReason("");
   };
