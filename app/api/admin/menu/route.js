@@ -6,6 +6,7 @@ import {
   deleteMenuItemServer,
   toggleMenuItemAvailabilityServer,
 } from "@/lib/admin/serverStore";
+import { getAuthenticatedAdmin } from "@/lib/auth/adminAuth";
 
 export const dynamic = "force-dynamic";
 
@@ -60,6 +61,14 @@ export async function GET(request) {
 
 export async function POST(request) {
   try {
+    const admin = await getAuthenticatedAdmin(request);
+    if (!admin) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized access: Administrator session required." },
+        { status: 401 }
+      );
+    }
+
     const payload = await request.json();
     if (!payload.title || payload.price === undefined) {
       return NextResponse.json(
@@ -87,6 +96,14 @@ export async function POST(request) {
 
 export async function PATCH(request) {
   try {
+    const admin = await getAuthenticatedAdmin(request);
+    if (!admin) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized access: Administrator session required." },
+        { status: 401 }
+      );
+    }
+
     const body = await request.json();
     const { id, action, ...fields } = body;
 
@@ -120,6 +137,14 @@ export async function PATCH(request) {
 
 export async function DELETE(request) {
   try {
+    const admin = await getAuthenticatedAdmin(request);
+    if (!admin) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized access: Administrator session required." },
+        { status: 401 }
+      );
+    }
+
     const { searchParams } = new URL(request.url);
     let id = searchParams.get("id");
 
