@@ -2,11 +2,18 @@
 import Image from "next/image";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { useRef } from "react";
-import { heroContent } from "@/lib/content";
+import { heroContent as defaultHeroContent } from "@/lib/content";
+import { useCms } from "@/lib/useCms";
 
 export default function Hero() {
   const ref = useRef(null);
   const prefersReduced = useReducedMotion();
+  const { cmsContent } = useCms();
+
+  const eyebrowText = cmsContent?.heroBanner?.badge || defaultHeroContent.eyebrow;
+  const headlineText = cmsContent?.heroBanner?.headline || defaultHeroContent.headline;
+  const subheadlineText = cmsContent?.heroBanner?.subheadline || defaultHeroContent.subheadline;
+
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
@@ -62,7 +69,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          {heroContent.eyebrow}
+          {eyebrowText}
         </motion.p>
 
         <motion.h1
@@ -71,7 +78,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4 }}
         >
-          {heroContent.headline}
+          {headlineText}
         </motion.h1>
 
         <motion.p
@@ -80,7 +87,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.7 }}
         >
-          {heroContent.subheadline}
+          {subheadlineText}
         </motion.p>
       </motion.div>
     </section>
