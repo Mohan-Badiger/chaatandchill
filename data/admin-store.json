@@ -1,6 +1,6 @@
 {
-  "version": 24,
-  "lastModified": "2026-10-19T17:11:48.507Z",
+  "version": 46,
+  "lastModified": "2026-10-25T16:52:39.339Z",
   "currentUser": {
     "id": "admin-master",
     "name": "Mohan",
@@ -395,6 +395,111 @@
     }
   ],
   "orders": [
+    {
+      "id": "ORD-159307-957",
+      "timestamp": "2026-10-25T16:52:39.307Z",
+      "status": "pending",
+      "paymentStatus": "paid",
+      "kotPrinted": false,
+      "outlet": "Jamakhandi",
+      "type": "Dine-in",
+      "table": "T-01",
+      "customer": {
+        "name": "Walk-in Guest",
+        "phone": "+91"
+      },
+      "items": [
+        {
+          "id": "item-107",
+          "title": "Crispy Medu Vada (2 Pcs) with Hot Sambhar",
+          "quantity": 1,
+          "price": 90,
+          "notes": ""
+        },
+        {
+          "id": "item-105",
+          "title": "Ghee Khali Dosa (Set of 2)",
+          "quantity": 1,
+          "price": 140,
+          "notes": ""
+        }
+      ],
+      "subtotal": 230,
+      "tax": 11.5,
+      "discount": 0,
+      "total": 241.5,
+      "paymentMode": "UPI / PhonePe"
+    },
+    {
+      "id": "ORD-137453-621",
+      "timestamp": "2026-10-25T16:52:17.453Z",
+      "status": "pending",
+      "paymentStatus": "paid",
+      "kotPrinted": false,
+      "outlet": "Jamakhandi",
+      "type": "Dine-in",
+      "table": "T-01",
+      "customer": {
+        "name": "Walk-in Guest",
+        "phone": "+91"
+      },
+      "items": [
+        {
+          "id": "item-105",
+          "title": "Ghee Khali Dosa (Set of 2)",
+          "quantity": 1,
+          "price": 140,
+          "notes": ""
+        },
+        {
+          "id": "item-109",
+          "title": "Spicy Karnataka Mirchi Bhajji",
+          "quantity": 1,
+          "price": 100,
+          "notes": ""
+        }
+      ],
+      "subtotal": 240,
+      "tax": 12,
+      "discount": 0,
+      "total": 252,
+      "paymentMode": "UPI / PhonePe"
+    },
+    {
+      "id": "ORD-017806-768",
+      "timestamp": "2026-10-25T16:50:17.806Z",
+      "status": "pending",
+      "paymentStatus": "paid",
+      "kotPrinted": false,
+      "outlet": "Jamakhandi",
+      "type": "Dine-in",
+      "table": "T-01",
+      "customer": {
+        "name": "Walk-in Guest",
+        "phone": "+91"
+      },
+      "items": [
+        {
+          "id": "item-109",
+          "title": "Spicy Karnataka Mirchi Bhajji",
+          "quantity": 1,
+          "price": 100,
+          "notes": ""
+        },
+        {
+          "id": "item-102",
+          "title": "Butter Thatte Idli with Gunpowder",
+          "quantity": 1,
+          "price": 95,
+          "notes": ""
+        }
+      ],
+      "subtotal": 195,
+      "tax": 9.75,
+      "discount": 0,
+      "total": 204.75,
+      "paymentMode": "UPI / PhonePe"
+    },
     {
       "id": "ORD-9523",
       "timestamp": "2026-10-19T17:11:48.409Z",
@@ -906,7 +1011,7 @@
       "code": "T-01",
       "name": "Table 01",
       "capacity": 4,
-      "status": "dining",
+      "status": "available",
       "currentOrder": "ORD-9401",
       "guests": 3,
       "elapsedMins": 22
@@ -918,15 +1023,16 @@
       "capacity": 2,
       "status": "available",
       "currentOrder": null,
-      "guests": 0,
-      "elapsedMins": 0
+      "guests": 2,
+      "elapsedMins": 0,
+      "reservedFor": "Reserved Guest"
     },
     {
       "id": "tbl-03",
       "code": "T-03",
       "name": "Table 03",
       "capacity": 4,
-      "status": "dining",
+      "status": "available",
       "currentOrder": "ORD-9403",
       "guests": 4,
       "elapsedMins": 14
@@ -936,9 +1042,9 @@
       "code": "T-04",
       "name": "Table 04",
       "capacity": 6,
-      "status": "reserved",
+      "status": "available",
       "currentOrder": null,
-      "guests": 0,
+      "guests": 2,
       "reservedFor": "Vikram Desai (08:00 PM)"
     },
     {
@@ -956,7 +1062,7 @@
       "code": "T-06",
       "name": "Table 06",
       "capacity": 4,
-      "status": "dining",
+      "status": "available",
       "currentOrder": "ORD-9406",
       "guests": 2,
       "elapsedMins": 35
@@ -986,9 +1092,9 @@
       "code": "T-09",
       "name": "Table 09",
       "capacity": 4,
-      "status": "reserved",
+      "status": "available",
       "currentOrder": null,
-      "guests": 0,
+      "guests": 2,
       "reservedFor": "Dr. Sanjeev Rao (08:30 PM)"
     },
     {
@@ -1586,13 +1692,13 @@
       "highlight": "Order Online"
     },
     "heroBanner": {
-      "badge": "100% PURE NANDINI COW GHEE • ZERO REFRIGERATION",
+      "badge": "Available our Signature Pizza",
       "headline": "Tradition on a Plate, Joy in Every Bite.",
-      "subheadline": "Sip. Snack. Smile. Where street food heritage meets luxury café soul."
+      "subheadline": "Sip. Snack. Smile."
     },
     "operationalNotice": {
       "status": "Normal Operations",
-      "message": "Both outlets open from 10:00 AM to 11:00 PM today. Live tawa counters in full swing."
+      "message": "Both outlets open from 10:00 AM to 11:00 PM today. "
     },
     "featuredSpecials": [
       "item-101",
@@ -1602,6 +1708,36 @@
     ]
   },
   "notifications": [
+    {
+      "id": "notif-1792947159339",
+      "type": "order",
+      "priority": "urgent",
+      "title": "⚡ New Order: ORD-159307-957",
+      "message": "Walk-in Guest placed an order for ₹241.5.",
+      "time": "Just now",
+      "read": false,
+      "createdAt": "2026-10-25T16:52:39.339Z"
+    },
+    {
+      "id": "notif-1792947137493",
+      "type": "order",
+      "priority": "urgent",
+      "title": "⚡ New Order: ORD-137453-621",
+      "message": "Walk-in Guest placed an order for ₹252.",
+      "time": "Just now",
+      "read": false,
+      "createdAt": "2026-10-25T16:52:17.493Z"
+    },
+    {
+      "id": "notif-1792947017948",
+      "type": "order",
+      "priority": "urgent",
+      "title": "⚡ New Order: ORD-017806-768",
+      "message": "Walk-in Guest placed an order for ₹204.75.",
+      "time": "Just now",
+      "read": false,
+      "createdAt": "2026-10-25T16:50:17.948Z"
+    },
     {
       "id": "notif-1792429908507",
       "type": "order",
