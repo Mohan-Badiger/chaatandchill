@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { navLinks } from "@/lib/content";
 import { useBooking } from "@/lib/BookingContext";
 import MagneticButton from "@/components/shared/MagneticButton";
+import AnnouncementBanner from "@/components/shared/AnnouncementBanner";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -77,6 +78,7 @@ export default function Navbar() {
               : "1px solid rgba(255, 255, 255, 0.04)",
         }}
       >
+        <AnnouncementBanner />
         <nav className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4 lg:px-10">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 z-10 group">

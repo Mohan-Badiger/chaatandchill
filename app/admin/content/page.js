@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAdmin } from "@/lib/admin/adminStore";
 import AdminCard from "@/components/admin/ui/AdminCard";
 import AdminBadge from "@/components/admin/ui/AdminBadge";
@@ -14,6 +14,7 @@ import {
   Eye,
   CheckCircle2,
   ExternalLink,
+  Loader2,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -21,10 +22,22 @@ export default function AdminContentPage() {
   const { cmsContent, updateCmsContent, addToast } = useAdmin();
 
   const [formData, setFormData] = useState(cmsContent);
+  const [isSaving, setIsSaving] = useState(false);
 
-  const handleSave = (e) => {
-    e.preventDefault();
-    updateCmsContent(formData);
+  useEffect(() => {
+    if (cmsContent) {
+      setFormData(cmsContent);
+    }
+  }, [cmsContent]);
+
+  const handleSave = async (e) => {
+    if (e && e.preventDefault) e.preventDefault();
+    setIsSaving(true);
+    try {
+      await updateCmsContent(formData);
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   return (
@@ -53,10 +66,11 @@ export default function AdminContentPage() {
           <AdminButton
             variant="primary"
             size="sm"
-            icon={Save}
+            icon={isSaving ? Loader2 : Save}
             onClick={handleSave}
+            disabled={isSaving}
           >
-            Save Changes Live
+            {isSaving ? "Publishing..." : "Save Changes Live"}
           </AdminButton>
         </div>
       </div>
@@ -281,9 +295,10 @@ export default function AdminContentPage() {
             type="submit"
             variant="primary"
             size="md"
-            icon={Save}
+            icon={isSaving ? Loader2 : Save}
+            disabled={isSaving}
           >
-            Save & Publish Live CMS
+            {isSaving ? "Publishing Live Changes..." : "Save & Publish Live CMS"}
           </AdminButton>
         </div>
       </form>

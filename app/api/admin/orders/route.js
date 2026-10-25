@@ -1,10 +1,19 @@
 import { NextResponse } from "next/server";
 import { getAdminData, createOrder, updateOrderStatus } from "@/lib/admin/serverStore";
+import { getAuthenticatedAdmin } from "@/lib/auth/adminAuth";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(request) {
   try {
+    const admin = await getAuthenticatedAdmin(request);
+    if (!admin) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized access: Administrator session required." },
+        { status: 401 }
+      );
+    }
+
     const { data } = await getAdminData();
     const { searchParams } = new URL(request.url);
 
@@ -47,6 +56,14 @@ export async function GET(request) {
 
 export async function POST(request) {
   try {
+    const admin = await getAuthenticatedAdmin(request);
+    if (!admin) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized access: Administrator session required." },
+        { status: 401 }
+      );
+    }
+
     const payload = await request.json();
     if (!payload.items || !payload.total) {
       return NextResponse.json(
@@ -72,6 +89,14 @@ export async function POST(request) {
 
 export async function PATCH(request) {
   try {
+    const admin = await getAuthenticatedAdmin(request);
+    if (!admin) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized access: Administrator session required." },
+        { status: 401 }
+      );
+    }
+
     const { orderId, status } = await request.json();
     if (!orderId || !status) {
       return NextResponse.json(

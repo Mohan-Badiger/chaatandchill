@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAdmin } from "@/lib/admin/adminStore";
 
-const emptySubscribe = () => () => {};
+const emptySubscribe = () => () => { };
 const useIsMounted = () => useSyncExternalStore(emptySubscribe, () => true, () => false);
 import {
   LayoutDashboard,
@@ -101,9 +101,8 @@ export default function AdminSidebar() {
     return (
       <span
         suppressHydrationWarning
-        className={`px-1.5 py-0.5 rounded-full text-[10px] font-bold font-mono leading-none ${
-          colors[variant] || colors.gold
-        }`}
+        className={`px-1.5 py-0.5 rounded-full text-[10px] font-bold font-mono leading-none ${colors[variant] || colors.gold
+          }`}
       >
         {count}
       </span>
@@ -118,11 +117,8 @@ export default function AdminSidebar() {
           href="/admin"
           className="flex items-center gap-2.5 overflow-hidden group cursor-pointer"
         >
-          <div className="w-9 h-9 rounded-xl bg-[#1C1814] border border-gold/30 flex items-center justify-center shrink-0 shadow-inner group-hover:border-gold/60 transition-colors">
-            <Coffee className="w-4.5 h-4.5 text-gold" />
-          </div>
           {!sidebarCollapsed && (
-            <span className="font-google-sans font-bold text-sm tracking-wide text-cream truncate">
+            <span className="font-google-sans font-bold text-base sm:text-lg text-cream tracking-tight whitespace-nowrap">
               Chaat &amp; Chill
             </span>
           )}
@@ -160,17 +156,15 @@ export default function AdminSidebar() {
                     href={item.href}
                     onClick={() => setMobileMenuOpen(false)}
                     title={sidebarCollapsed ? item.label : undefined}
-                    className={`flex items-center justify-between px-2.5 py-2 rounded-xl text-xs font-medium transition-all group cursor-pointer ${
-                      isActive
-                        ? "bg-[#1C1814] text-[#F7F4EE] font-semibold border border-gold/30 shadow-sm"
-                        : "text-[#9E9689] hover:text-[#F7F4EE] hover:bg-white/4"
-                    } ${sidebarCollapsed ? "justify-center" : ""}`}
+                    className={`flex items-center justify-between px-2.5 py-2 rounded-xl text-xs font-medium transition-all group cursor-pointer ${isActive
+                      ? "bg-[#1C1814] text-[#F7F4EE] font-semibold border border-gold/30 shadow-sm"
+                      : "text-[#9E9689] hover:text-[#F7F4EE] hover:bg-white/4"
+                      } ${sidebarCollapsed ? "justify-center" : ""}`}
                   >
                     <div className="flex items-center gap-3 min-w-0">
                       <Icon
-                        className={`w-4 h-4 shrink-0 transition-transform group-hover:scale-105 ${
-                          isActive ? "text-gold" : "text-[#6E665C] group-hover:text-gold"
-                        }`}
+                        className={`w-4 h-4 shrink-0 transition-transform group-hover:scale-105 ${isActive ? "text-gold" : "text-[#6E665C] group-hover:text-gold"
+                          }`}
                       />
                       {!sidebarCollapsed && (
                         <span className="truncate">{item.label}</span>
@@ -223,9 +217,8 @@ export default function AdminSidebar() {
     <>
       {/* Desktop Sticky Sidebar */}
       <aside
-        className={`hidden lg:block shrink-0 transition-all duration-250 z-30 h-screen sticky top-0 ${
-          sidebarCollapsed ? "w-18" : "w-64"
-        }`}
+        className={`hidden lg:block shrink-0 transition-all duration-250 z-30 h-screen sticky top-0 ${sidebarCollapsed ? "w-18" : "w-64"
+          }`}
       >
         {navContent}
       </aside>

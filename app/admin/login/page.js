@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useAdmin, MASTER_ADMIN } from "@/lib/admin/adminStore";
+import { useAdmin } from "@/lib/admin/adminStore";
 import {
   Coffee,
   Mail,
@@ -18,34 +18,29 @@ export default function AdminLoginPage() {
   const router = useRouter();
   const { loginUser } = useAdmin();
 
-  const [email, setEmail] = useState("admin@cafe.com");
-  const [password, setPassword] = useState("admin@123");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleManualLogin = (e) => {
+  const handleManualLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError("");
 
-    setTimeout(() => {
-      if (
-        email.toLowerCase().trim() === MASTER_ADMIN.email.toLowerCase() &&
-        (password === MASTER_ADMIN.password || password === MASTER_ADMIN.pin || password === "admin@123")
-      ) {
-        loginUser(MASTER_ADMIN);
+    try {
+      const res = await loginUser({ email, password });
+      if (res?.success) {
         router.push("/admin");
       } else {
-        setError("Invalid administrator credentials. Use admin@cafe.com with password admin@123.");
+        setError(res?.error || "Invalid administrator credentials. Please check your email and password.");
         setLoading(false);
       }
-    }, 400);
-  };
-
-  const handleQuickLogin = () => {
-    loginUser(MASTER_ADMIN);
-    router.push("/admin");
+    } catch {
+      setError("An unexpected error occurred during authentication. Please try again.");
+      setLoading(false);
+    }
   };
 
   return (
@@ -78,7 +73,7 @@ export default function AdminLoginPage() {
               Sign In to Admin Console
             </h2>
             <p className="text-xs text-[#8E867B] mt-0.5">
-              Admin access for Mohan (admin@cafe.com)
+              Enter your verified restaurant administrator credentials to proceed.
             </p>
           </div>
 
@@ -101,7 +96,8 @@ export default function AdminLoginPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="admin@cafe.com"
                   required
-                  className="w-full bg-[#1C1814] border rounded-xl pl-10 pr-3 py-2.5 text-xs text-cream focus:outline-none focus:border-gold/50"
+                  autoComplete="email"
+                  className="w-full bg-[#1C1814] border border-[#2E2721] rounded-xl pl-10 pr-3 py-2.5 text-xs text-cream placeholder:text-[#5E5548] focus:outline-none focus:border-gold/50 transition-colors"
                 />
               </div>
             </div>
@@ -111,9 +107,6 @@ export default function AdminLoginPage() {
                 <label className="text-xs font-semibold text-cream block">
                   Password
                 </label>
-                <span className="text-[10px] text-gold/80 font-mono">
-                  Default: admin@123
-                </span>
               </div>
               <div className="relative mt-1.5">
                 <Lock className="w-4 h-4 text-[#7E7568] absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -121,9 +114,10 @@ export default function AdminLoginPage() {
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="admin@123"
+                  placeholder="••••••••••••"
                   required
-                  className="w-full bg-[#1C1814] border border-white/10 rounded-xl pl-10 pr-10 py-2.5 text-xs text-cream focus:outline-none"
+                  autoComplete="current-password"
+                  className="w-full bg-[#1C1814] border border-[#2E2721] rounded-xl pl-10 pr-10 py-2.5 text-xs text-cream placeholder:text-[#5E5548] focus:outline-none focus:border-gold/50 transition-colors"
                 />
                 <button
                   type="button"
@@ -139,25 +133,12 @@ export default function AdminLoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-2.5 px-4 rounded-xl bg-linear-to-r from-gold to-[#E6BC65] hover:from-[#E6BC65] hover:to-[#F3CF7A] text-[#141210] font-semibold text-xs shadow-lg shadow-gold/10 flex items-center justify-center gap-2 cursor-pointer transition-all active:scale-[0.98]"
+              className="w-full py-2.5 px-4 rounded-xl bg-linear-to-r from-gold to-[#E6BC65] hover:from-[#E6BC65] hover:to-[#F3CF7A] text-[#141210] font-semibold text-xs shadow-lg shadow-gold/10 flex items-center justify-center gap-2 cursor-pointer transition-all active:scale-[0.98] disabled:opacity-50"
             >
               <span>{loading ? "Authenticating..." : "Sign In as Administrator"}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </form>
-
-          {/* Quick Demo 1-Click Access */}
-          <div className="pt-3 border-t border-[#25201B]">
-            <button
-              type="button"
-              onClick={handleQuickLogin}
-              className="w-full p-2.5 rounded-xl bg-[#1C1814] border border-[#2A241F] hover:border-gold/40 text-center transition-all cursor-pointer group flex items-center justify-center gap-2"
-            >
-              <span className="text-xs font-semibold text-cream group-hover:text-gold transition-colors">
-                ⚡ 1-Click Administrator Instant Access
-              </span>
-            </button>
-          </div>
         </div>
 
         {/* Footer links */}

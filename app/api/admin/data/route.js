@@ -1,11 +1,19 @@
 import { NextResponse } from "next/server";
 import { getAdminData, syncAdminData, resetDatabaseToDefaults } from "@/lib/admin/serverStore";
+import { getAuthenticatedAdmin } from "@/lib/auth/adminAuth";
 
-// Force dynamic execution for accurate real-time data
 export const dynamic = "force-dynamic";
 
 export async function GET(request) {
   try {
+    const admin = await getAuthenticatedAdmin(request);
+    if (!admin) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized access: Administrator session required." },
+        { status: 401 }
+      );
+    }
+
     const { version, lastModified, etag, data } = await getAdminData();
 
     // Check client ETag for 304 Not Modified cache optimization
@@ -45,6 +53,14 @@ export async function GET(request) {
 
 export async function POST(request) {
   try {
+    const admin = await getAuthenticatedAdmin(request);
+    if (!admin) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized access: Administrator session required." },
+        { status: 401 }
+      );
+    }
+
     const body = await request.json();
 
     if (body.action === "reset") {

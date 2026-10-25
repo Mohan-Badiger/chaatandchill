@@ -13,7 +13,7 @@ import AdminCard from "@/components/admin/ui/AdminCard";
 import AdminBadge from "@/components/admin/ui/AdminBadge";
 import AdminButton from "@/components/admin/ui/AdminButton";
 
-const emptySubscribe = () => () => {};
+const emptySubscribe = () => () => { };
 const useIsMounted = () => useSyncExternalStore(emptySubscribe, () => true, () => false);
 import {
   IndianRupee,
@@ -155,7 +155,7 @@ export default function AdminDashboardPage() {
           trendLabel={lowStockCount === 0 ? "No shortages" : "Needs reorder"}
           isPositive={lowStockCount === 0}
           icon={AlertTriangle}
-          badgeText="Nandini Ghee Hub"
+          badgeText="Pizza's"
         />
       </div>
 
@@ -172,11 +172,10 @@ export default function AdminDashboardPage() {
                   <button
                     key={tab}
                     onClick={() => setSalesTimeframe(tab)}
-                    className={`px-3 py-1 rounded-lg capitalize font-medium transition-colors cursor-pointer ${
-                      salesTimeframe === tab
+                    className={`px-3 py-1 rounded-lg capitalize font-medium transition-colors cursor-pointer ${salesTimeframe === tab
                         ? "bg-gold text-[#12100E] font-semibold shadow-xs"
                         : "text-[#8E867B] hover:text-[#EDE8E1]"
-                    }`}
+                      }`}
                   >
                     {tab}
                   </button>
