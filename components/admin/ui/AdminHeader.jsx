@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAdmin, OUTLETS, MASTER_ADMIN } from "@/lib/admin/adminStore";
 
-const emptySubscribe = () => () => {};
+const emptySubscribe = () => () => { };
 const useIsMounted = () => useSyncExternalStore(emptySubscribe, () => true, () => false);
 
 import {
@@ -57,19 +57,6 @@ export default function AdminHeader() {
           <Menu className="w-5 h-5" />
         </button>
 
-        {/* Brand Logo: Chaat & Chill */}
-        <Link
-          href="/admin"
-          className="flex items-center gap-2 group cursor-pointer"
-        >
-          <div className="w-8 h-8 rounded-xl bg-[#1C1814] border border-gold/40 flex items-center justify-center shrink-0 group-hover:border-gold/70 transition-colors shadow-inner">
-            <Coffee className="w-4 h-4 text-gold" />
-          </div>
-          <span className="font-google-sans font-bold text-base sm:text-lg text-cream tracking-tight whitespace-nowrap">
-            Chaat &amp; Chill
-          </span>
-        </Link>
-
         {/* Subtle Vertical Divider */}
         <div className="h-5 w-px bg-[#26201A] hidden sm:block" />
 
@@ -102,11 +89,10 @@ export default function AdminHeader() {
                       setSelectedOutlet(outlet.id);
                       setOutletMenuOpen(false);
                     }}
-                    className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-left text-xs transition-colors cursor-pointer ${
-                      selectedOutlet === outlet.id
-                        ? "bg-gold/15 text-gold font-semibold"
-                        : "text-[#D8CEBF] hover:bg-[#1E1A16]"
-                    }`}
+                    className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-left text-xs transition-colors cursor-pointer ${selectedOutlet === outlet.id
+                      ? "bg-gold/15 text-gold font-semibold"
+                      : "text-[#D8CEBF] hover:bg-[#1E1A16]"
+                      }`}
                   >
                     <span className="font-medium">{outlet.name}</span>
                     {selectedOutlet === outlet.id && (
