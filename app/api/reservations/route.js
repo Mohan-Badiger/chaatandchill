@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import { createReservationServer, getAdminData } from "@/lib/admin/serverStore";
 import { getAuthenticatedAdmin } from "@/lib/auth/adminAuth";
+import { connectToDatabase, isMongoConfigured } from "@/lib/db/mongodb";
+import { ReservationModel } from "@/lib/db/models";
+import { rateLimit, getClientIp } from "@/lib/rateLimit";
 
 export const dynamic = "force-dynamic";
 
@@ -22,12 +25,42 @@ export async function GET(request) {
 
     // 2. If customer is querying their own reservation with verified code and phone
     if (bookingCode && phone) {
-      const { data } = await getAdminData();
-      const match = (data.reservations || []).find(
-        (r) =>
-          r.bookingCode?.toUpperCase() === bookingCode.toUpperCase() &&
-          r.phone?.replace(/\D/g, "").slice(-10) === phone.replace(/\D/g, "").slice(-10)
-      );
+      const ip = getClientIp(request);
+      // Rate limit query lookups to prevent brute force code guessing: 10 queries per minute per IP
+      const limitCheck = rateLimit(`res-lookup:${ip}`, 10, 60 * 1000);
+      if (!limitCheck.success) {
+        return NextResponse.json(
+          { success: false, error: "Too many lookup attempts. Please wait a moment." },
+          { status: 429 }
+        );
+      }
+
+      const cleanCode = bookingCode.trim().toUpperCase();
+      const cleanPhone = phone.replace(/\D/g, "").slice(-10);
+
+      let match = null;
+
+      if (isMongoConfigured()) {
+        try {
+          await connectToDatabase();
+          const doc = await ReservationModel.findOne({ bookingCode: cleanCode }).lean();
+          if (doc && doc.phone?.replace(/\D/g, "").slice(-10) === cleanPhone) {
+            match = doc;
+          }
+        } catch (dbErr) {
+          console.warn("[Reservation Lookup] DB query error:", dbErr.message);
+        }
+      }
+
+      if (!match) {
+        // Fallback to in-memory/disk store if MongoDB wasn't connected
+        const { data } = await getAdminData();
+        match = (data.reservations || []).find(
+          (r) =>
+            r.bookingCode?.toUpperCase() === cleanCode &&
+            r.phone?.replace(/\D/g, "").slice(-10) === cleanPhone
+        );
+      }
 
       if (match) {
         return NextResponse.json({
@@ -69,6 +102,16 @@ export async function GET(request) {
 
 export async function POST(request) {
   try {
+    const ip = getClientIp(request);
+    // Rate limit: 5 reservations per 10 minutes per IP
+    const limitCheck = rateLimit(`res-create:${ip}`, 5, 10 * 60 * 1000);
+    if (!limitCheck.success) {
+      return NextResponse.json(
+        { success: false, error: "Too many reservation attempts. Please try again later." },
+        { status: 429, headers: { "Retry-After": "600" } }
+      );
+    }
+
     const body = await request.json();
 
     if (!body.name || !body.phone || !body.time) {
@@ -78,7 +121,7 @@ export async function POST(request) {
       );
     }
 
-    // Basic sanitization
+    // Input sanitization
     const sanitizedBody = {
       name: String(body.name).slice(0, 80).trim(),
       phone: String(body.phone).slice(0, 20).trim(),
