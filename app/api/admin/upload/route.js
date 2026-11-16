@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getAuthenticatedAdmin } from "@/lib/auth/adminAuth";
+import { rateLimit } from "@/lib/rateLimit";
 import fs from "fs/promises";
 import path from "path";
 
@@ -15,6 +16,38 @@ const ALLOWED_MIME_TYPES = new Set([
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
 
+function isValidImageMagicBytes(buffer, type) {
+  if (buffer.length < 4) return false;
+  // JPEG: FF D8 FF
+  if (type === "image/jpeg") {
+    return buffer[0] === 0xff && buffer[1] === 0xd8 && buffer[2] === 0xff;
+  }
+  // PNG: 89 50 4E 47
+  if (type === "image/png") {
+    return buffer[0] === 0x89 && buffer[1] === 0x50 && buffer[2] === 0x4e && buffer[3] === 0x47;
+  }
+  // GIF: 47 49 46
+  if (type === "image/gif") {
+    return buffer[0] === 0x47 && buffer[1] === 0x49 && buffer[2] === 0x46;
+  }
+  // WEBP: RIFF....WEBP
+  if (type === "image/webp") {
+    return (
+      buffer[0] === 0x52 &&
+      buffer[1] === 0x49 &&
+      buffer[2] === 0x46 &&
+      buffer[3] === 0x46 &&
+      buffer.length >= 12 &&
+      buffer.subarray(8, 12).toString("ascii") === "WEBP"
+    );
+  }
+  // AVIF: ....ftyp
+  if (type === "image/avif") {
+    return buffer.length >= 12 && buffer.subarray(4, 12).toString("ascii").includes("ftyp");
+  }
+  return false;
+}
+
 export async function POST(request) {
   try {
     const admin = await getAuthenticatedAdmin(request);
@@ -22,6 +55,15 @@ export async function POST(request) {
       return NextResponse.json(
         { success: false, error: "Unauthorized access: Administrator session required." },
         { status: 401 }
+      );
+    }
+
+    // Rate limit uploads: 20 uploads per minute per admin
+    const limitCheck = rateLimit(`admin-upload:${admin.id}`, 20, 60 * 1000);
+    if (!limitCheck.success) {
+      return NextResponse.json(
+        { success: false, error: "Upload rate limit reached. Please wait a moment." },
+        { status: 429 }
       );
     }
 
@@ -55,6 +97,14 @@ export async function POST(request) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
+    // Validate magic bytes to prevent MIME spoofing
+    if (!isValidImageMagicBytes(buffer, file.type)) {
+      return NextResponse.json(
+        { success: false, error: "File contents do not match the expected image signature." },
+        { status: 400 }
+      );
+    }
+
     // Determine extension
     const extMap = {
       "image/jpeg": "jpg",
@@ -81,7 +131,17 @@ export async function POST(request) {
     } catch (fsErr) {
       // Ephemeral / Serverless runtime fallback (read-only filesystem)
       if (fsErr.code === "EROFS" || fsErr.code === "EACCES") {
-        console.warn("[Upload] Serverless read-only filesystem detected. Returning optimized Data URL.");
+        if (file.size > 1.5 * 1024 * 1024) {
+          return NextResponse.json(
+            {
+              success: false,
+              error:
+                "Direct serverless upload exceeds 1.5MB in read-only environment. Please configure external cloud storage (S3/Cloudinary) for large media.",
+            },
+            { status: 413 }
+          );
+        }
+        console.warn("[Upload] Serverless read-only filesystem detected. Returning Data URL.");
         const base64Data = buffer.toString("base64");
         const dataUrl = `data:${file.type};base64,${base64Data}`;
         return NextResponse.json({
