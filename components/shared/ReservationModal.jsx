@@ -88,7 +88,6 @@ export default function ReservationModal() {
 
     // Synchronize directly with backend server API & admin panel
     const newBooking = {
-      id: "RES-" + Date.now().toString().slice(-4),
       bookingCode: randomCode,
       outlet: formData.location?.includes("Rabakavi") ? "Rabakavi" : "Jamakhandi",
       name: formData.name,
@@ -101,7 +100,6 @@ export default function ReservationModal() {
       status: "confirmed",
       notes: "Booked online via Website Concierge",
       source: "Website Concierge",
-      createdAt: new Date().toISOString(),
     };
 
     fetch("/api/reservations", {
