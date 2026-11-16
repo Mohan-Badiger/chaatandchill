@@ -1,19 +1,34 @@
 import { NextResponse } from "next/server";
-import { getAdminData } from "@/lib/admin/serverStore";
+import { connectToDatabase, isMongoConfigured } from "@/lib/db/mongodb";
+import { SystemDocModel } from "@/lib/db/models";
+import { INITIAL_CMS_CONTENT } from "@/lib/admin/seedData";
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
-    const { data } = await getAdminData();
+    let cmsContent = INITIAL_CMS_CONTENT;
+
+    if (isMongoConfigured()) {
+      try {
+        await connectToDatabase();
+        const doc = await SystemDocModel.findOne({ key: "cmsContent" }).lean();
+        if (doc?.value) {
+          cmsContent = doc.value;
+        }
+      } catch (dbErr) {
+        console.warn("[API: /api/content] Database fetch fallback:", dbErr.message);
+      }
+    }
+
     return NextResponse.json(
       {
         success: true,
-        cmsContent: data.cmsContent,
+        cmsContent,
       },
       {
         headers: {
-          "Cache-Control": "public, s-maxage=10, stale-while-revalidate=30",
+          "Cache-Control": "public, s-maxage=30, stale-while-revalidate=60",
         },
       }
     );
