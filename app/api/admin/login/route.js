@@ -4,11 +4,30 @@ import {
   createAdminSessionToken,
   getSessionCookieOptions,
 } from "@/lib/auth/adminAuth";
+import { rateLimit, getClientIp } from "@/lib/rateLimit";
 
 export const dynamic = "force-dynamic";
 
 export async function POST(request) {
   try {
+    const ip = getClientIp(request);
+    // Rate limit: 5 login attempts per 15 minutes per IP
+    const limitCheck = rateLimit(`admin-login:${ip}`, 5, 15 * 60 * 1000);
+    if (!limitCheck.success) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Too many failed login attempts. Please wait 15 minutes before trying again.",
+        },
+        {
+          status: 429,
+          headers: {
+            "Retry-After": "900",
+          },
+        }
+      );
+    }
+
     const body = await request.json();
     const { email, password } = body || {};
 
