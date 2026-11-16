@@ -109,36 +109,14 @@ export default function ReservationModal() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newBooking),
     })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && data.bookingCode) {
+          setBookingCode(data.bookingCode);
+        }
+      })
       .catch((err) => console.warn("[ReservationModal] Server sync error:", err))
       .finally(() => {
-        // Also save to local storage for instant feedback
-        try {
-          const stored = localStorage.getItem("chaat_admin_reservations");
-          const currentReservations = stored ? JSON.parse(stored) : [];
-          localStorage.setItem("chaat_admin_reservations", JSON.stringify([newBooking, ...currentReservations]));
-
-          const notifStored = localStorage.getItem("chaat_admin_notifs");
-          const currentNotifs = notifStored ? JSON.parse(notifStored) : [];
-          const newNotif = {
-            id: "notif-" + Date.now(),
-            type: "reservation",
-            priority: "urgent",
-            title: `New Online Reservation: ${randomCode}`,
-            message: `${formData.name} booked a table for ${formData.guests} guests at ${formData.time} (${newBooking.outlet}).`,
-            time: "Just now",
-            read: false,
-          };
-          localStorage.setItem("chaat_admin_notifs", JSON.stringify([newNotif, ...currentNotifs]));
-
-          // Broadcast to admin dashboard if open
-          if (typeof window !== "undefined" && "BroadcastChannel" in window) {
-            const channel = new BroadcastChannel("chaat_admin_bus");
-            channel.postMessage({ type: "RESERVATION_ADDED", payload: newBooking, timestamp: Date.now() });
-            channel.close();
-          }
-        } catch {
-          // ignore
-        }
         setStep("success");
       });
   };
