@@ -64,6 +64,23 @@ export async function POST(request) {
     const body = await request.json();
 
     if (body.action === "reset") {
+      // Security Guard: Prevent accidental data wipe in production
+      const isProd = process.env.NODE_ENV === "production";
+      const resetSecret = process.env.ADMIN_RESET_SECRET;
+
+      if (isProd) {
+        if (!resetSecret || body.resetSecret !== resetSecret) {
+          return NextResponse.json(
+            {
+              success: false,
+              error:
+                "Factory reset is restricted in production. Set ADMIN_RESET_SECRET and provide resetSecret to proceed.",
+            },
+            { status: 403 }
+          );
+        }
+      }
+
       const result = await resetDatabaseToDefaults();
       return NextResponse.json({
         success: true,
