@@ -9,48 +9,48 @@ import SectionReveal from "@/components/shared/SectionReveal";
 const showcaseDishes = [
   {
     id: 1,
-    title: "Ghee Pudi Masala Dosa",
+    title: "Margherita Classica Pizza",
     description:
-      "A perfectly crisp dosa layered with ghee and spicy pudi, wrapped around a flavorful potato masala. It's the classic dosa you love, just more bold, aromatic, and satisfying.",
-    leftTag: "Crisp, Spiced,\nGhee-Kissed",
-    rightTag: "A Bold Twist to\nthe Masala",
-    image: "/images/food-dosa.jpg",
+      "Hand-stretched sourdough crust with San Marzano tomato sauce, fresh buffalo mozzarella, aromatic basil, and a drizzle of extra virgin olive oil. Classic, bubbly, and baked to perfection.",
+    leftTag: "Sourdough Crust,\nWood-Fired",
+    rightTag: "Fresh Buffalo\nMozzarella",
+    image: "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=800&auto=format&fit=crop&q=80",
   },
   {
     id: 2,
-    title: "Royal Papdi Chaat",
+    title: "Classic Crispy Veggie Burger",
     description:
-      "Crispy stone-ground papdi layered with spiced Yukon potatoes, tender chickpeas, whipped sweetened curd, and pomegranate pearls crowned with nylon sev.",
-    leftTag: "Tangy, Crisp,\nVelvet-Smooth",
-    rightTag: "A Symphony of\nSeven Chutneys",
-    image: "/images/food-chaat.jpg",
+      "Golden crumb-coated potato and herb patty, crisp iceberg lettuce, ripe farm tomatoes, pickled gherkins, and our secret burger sauce in a toasted brioche bun.",
+    leftTag: "Brioche Bun,\nCrunchy Patty",
+    rightTag: "Melted Cheddar &\nSecret Aioli",
+    image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&auto=format&fit=crop&q=80",
   },
   {
     id: 3,
-    title: "Pani Puri Tasting Flight",
+    title: "Peri-Peri Masala Finger Chips",
     description:
-      "Six featherlight crisp puris accompanied by our 6 artisanal herbal waters: Teekha Pudina, Meetha Saunth, Hing Jeera, Raw Mango, Garlic Herb, and Guava Chilli.",
-    leftTag: "Explosive, Crisp,\nIce-Chilled",
-    rightTag: "Six Artisanal Waters\nin One Flight",
-    image: "/images/food-panipuri.jpg",
+      "Golden crisp-fried potato finger chips generously dusted with our fiery African bird's eye peri-peri spice blend and lemon zest. Served hot with garlic dip.",
+    leftTag: "Golden, Crisp,\nPiping-Hot",
+    rightTag: "Fiery African\nPeri-Peri Dust",
+    image: "https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?w=800&auto=format&fit=crop&q=80",
   },
   {
     id: 4,
-    title: "Gunpowder Mumbai Vada Pav",
+    title: "Belgian Dark Chocolate Fudge Sundae",
     description:
-      "Golden spiced batata vada inside an Amul butter toasted ladi pav bun, generously dusted with fiery dry garlic-peanut gunpowder and salted green chilli.",
-    leftTag: "Golden, Fiery,\nStreet-Legend",
-    rightTag: "The Soul of Mumbai\nin Every Bite",
-    image: "/images/food-vadapav.jpg",
+      "Two scoops of 70% dark Belgian chocolate ice cream layered over warm fudge brownie chunks, hot chocolate fudge sauce, and roasted almonds.",
+    leftTag: "Rich 70% Cocoa,\nWarm Brownie",
+    rightTag: "Hot Fudge &\nRoasted Almonds",
+    image: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=800&auto=format&fit=crop&q=80",
   },
   {
     id: 5,
-    title: "Classic Punjabi Samosa",
+    title: "Classic Cold Coffee with Ice Cream",
     description:
-      "Hand-folded pyramid pastry with an ajwain-infused golden crust, stuffed with cumin-roasted potatoes, tender sweet peas, and crushed coriander seeds.",
-    leftTag: "Flaky, Savory,\nPiping-Hot",
-    rightTag: "Heirloom Spices in\nAjwain Crust",
-    image: "/images/food-samosa.jpg",
+      "Double shot of fresh Arabica espresso blended thick with chilled whole milk, topped with a velvety scoop of vanilla bean ice cream and cocoa dusting.",
+    leftTag: "Arabica Roast,\nThick & Creamy",
+    rightTag: "Vanilla Ice Cream\nTopping",
+    image: "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=800&auto=format&fit=crop&q=80",
   },
 ];
 
