@@ -24,6 +24,16 @@ export async function GET(request) {
     if (isMongoConfigured()) {
       try {
         await connectToDatabase();
+
+        // Auto-migrate legacy items in MongoDB if present
+        const hasOldMenu = await MenuItemModel.findOne({ category: "Stars of the Morning Show" });
+        if (hasOldMenu) {
+          await MenuItemModel.deleteMany({});
+          await CategoryModel.deleteMany({});
+          await MenuItemModel.insertMany(INITIAL_MENU_ITEMS);
+          await CategoryModel.insertMany(INITIAL_CATEGORIES);
+        }
+
         const query = { isAvailable: true };
         if (category && category !== "All") {
           query.category = category;
