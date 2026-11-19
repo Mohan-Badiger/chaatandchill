@@ -101,10 +101,10 @@ export default function AdminDashboardPage() {
 
   // Category shares - refined harmonious luxury palette
   const categoryShares = [
-    { name: "Stars of the Morning Show", percent: 42, color: "bg-[#D4A853]" },
-    { name: "Street Chaats & Snacks", percent: 24, color: "bg-[#E2C07D]" },
-    { name: "Liquid Gold & Chais", percent: 22, color: "bg-[#9A753B]" },
-    { name: "Grand Finale Classics", percent: 12, color: "bg-[#4D3A24]" },
+    { name: "Pizzas & Flatbreads", percent: 38, color: "bg-[#D4A853]" },
+    { name: "Gourmet Burgers & Sandwiches", percent: 28, color: "bg-[#E2C07D]" },
+    { name: "Finger Chips & Starters", percent: 20, color: "bg-[#9A753B]" },
+    { name: "Artisanal Ice Creams & Sundaes", percent: 14, color: "bg-[#4D3A24]" },
   ];
 
   return (
