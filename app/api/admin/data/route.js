@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getAdminData, syncAdminData, resetDatabaseToDefaults } from "@/lib/admin/serverStore";
+import { getAdminData, getSyncMeta, syncAdminData, resetDatabaseToDefaults } from "@/lib/admin/serverStore";
 import { getAuthenticatedAdmin } from "@/lib/auth/adminAuth";
 
 export const dynamic = "force-dynamic";
@@ -14,19 +14,22 @@ export async function GET(request) {
       );
     }
 
-    const { version, lastModified, etag, data } = await getAdminData();
-
-    // Check client ETag for 304 Not Modified cache optimization
+    // Fast-path ETag check: avoid fetching 14 database collections if client store is already up to date
     const ifNoneMatch = request.headers.get("if-none-match");
-    if (ifNoneMatch && ifNoneMatch === etag) {
-      return new NextResponse(null, {
-        status: 304,
-        headers: {
-          ETag: etag,
-          "Cache-Control": "private, no-cache, must-revalidate",
-        },
-      });
+    if (ifNoneMatch) {
+      const meta = await getSyncMeta();
+      if (meta?.etag && meta.etag === ifNoneMatch) {
+        return new NextResponse(null, {
+          status: 304,
+          headers: {
+            ETag: meta.etag,
+            "Cache-Control": "private, no-cache, must-revalidate",
+          },
+        });
+      }
     }
+
+    const { version, lastModified, etag, data } = await getAdminData();
 
     return NextResponse.json(
       {
