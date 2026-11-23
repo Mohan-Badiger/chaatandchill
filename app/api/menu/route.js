@@ -2,8 +2,11 @@ import { NextResponse } from "next/server";
 import { connectToDatabase, isMongoConfigured } from "@/lib/db/mongodb";
 import { MenuItemModel, CategoryModel } from "@/lib/db/models";
 import { INITIAL_MENU_ITEMS, INITIAL_CATEGORIES } from "@/lib/admin/seedData";
+import { getMenuCache, setMenuCache, invalidateMenuCache } from "@/lib/cache/menuCache";
 
 export const dynamic = "force-dynamic";
+
+export { invalidateMenuCache };
 
 function sanitizePublicItem(item) {
   if (!item) return null;
@@ -18,21 +21,27 @@ export async function GET(request) {
     const category = searchParams.get("category");
     const outlet = searchParams.get("outlet");
 
+    const isDefaultRequest = (!category || category === "All") && (!outlet || outlet === "ALL");
+
+    // 1. Fast in-memory hit for standard catalog (0ms database overhead for 5,000+ users)
+    if (isDefaultRequest) {
+      const cached = getMenuCache();
+      if (cached) {
+        return NextResponse.json(cached, {
+          headers: {
+            "Cache-Control": "public, s-maxage=60, stale-while-revalidate=300",
+            "X-Cache": "HIT",
+          },
+        });
+      }
+    }
+
     let categories = [];
     let items = [];
 
     if (isMongoConfigured()) {
       try {
         await connectToDatabase();
-
-        // Auto-migrate legacy items in MongoDB if present
-        const hasOldMenu = await MenuItemModel.findOne({ category: "Stars of the Morning Show" });
-        if (hasOldMenu) {
-          await MenuItemModel.deleteMany({});
-          await CategoryModel.deleteMany({});
-          await MenuItemModel.insertMany(INITIAL_MENU_ITEMS);
-          await CategoryModel.insertMany(INITIAL_CATEGORIES);
-        }
 
         const query = { isAvailable: true };
         if (category && category !== "All") {
@@ -42,6 +51,7 @@ export async function GET(request) {
           query.$or = [{ outlet }, { outlet: "ALL" }];
         }
 
+        // Parallel indexed queries utilizing compound indexes
         const [catDocs, itemDocs] = await Promise.all([
           CategoryModel.find({ isActive: true }).sort({ sortOrder: 1 }).lean(),
           MenuItemModel.find(query).select("-costPrice -__v").lean(),
@@ -67,18 +77,23 @@ export async function GET(request) {
       categories = INITIAL_CATEGORIES;
     }
 
-    return NextResponse.json(
-      {
-        success: true,
-        categories,
-        items,
+    const payload = {
+      success: true,
+      categories,
+      items,
+    };
+
+    // Store in-memory cache for default catalog hits
+    if (isDefaultRequest && items.length > 0) {
+      setMenuCache(payload, 60000); // 60s in-memory TTL
+    }
+
+    return NextResponse.json(payload, {
+      headers: {
+        "Cache-Control": "public, s-maxage=60, stale-while-revalidate=300",
+        "X-Cache": "MISS",
       },
-      {
-        headers: {
-          "Cache-Control": "public, s-maxage=60, stale-while-revalidate=120",
-        },
-      }
-    );
+    });
   } catch (err) {
     console.error("[API: /api/menu] GET error:", err);
     return NextResponse.json(
